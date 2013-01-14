@@ -34,20 +34,9 @@
                 </thead>
                 -->
                 <tbody>
-                    <% if @qnum.nil? %>
-                        <% @questions.each do |q| %>
-                            <tr>
-                                <td><%= image_tag "/assets/svg/#{q.svg}" %></td>
-                                <td><% t = @themes.select{|t|t.themecode=q.themecode}[0] %>
-                                    <%= "#{t.maintheme}/#{t.subtheme}" %></td>
-                            </tr>
-                        <% end %>
-                    <% else %>
-                        <% q = @questions[@qnum.to_i - 1] %>
+                    <% @questions.each do |q| %>
                         <tr>
                             <td><%= image_tag "/assets/svg/#{q.svg}" %></td>
-                            <td><% t = @themes.select{|t|t.themecode=q.themecode}[0] %>
-                                <%= "#{t.maintheme}/#{t.subtheme}" %></td>
                         </tr>
                     <% end %>
                 </tbody>

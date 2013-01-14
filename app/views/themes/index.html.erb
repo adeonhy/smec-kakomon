@@ -26,7 +26,7 @@
 
     <div class="row">
         <div class="span8">
-            <h2><%= @maintheme %> / <%= @subtheme %></h2>
+            <h3><%= @maintheme %> / <%= @subtheme %></h3>
             <table class="table table-bordered">
                 <!--
                 <thead>
@@ -39,7 +39,10 @@
                     <% else %>
                         <% q = @themequestions.each do |q| %>
                             <tr>
-                                <td><%= image_tag "/assets/svg/#{q.svg}" %></td>
+                                <td>
+                                    <p><%= q.year %>年 第<%= q.number %>問</p>
+                                    <%= image_tag "/assets/svg/#{q.svg}" %>
+                                </td>
                             </tr>
                         <% end %>
                     <% end %>

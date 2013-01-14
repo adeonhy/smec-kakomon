@@ -10,10 +10,14 @@ class QuestionsController < ApplicationController
       'f'=> "経営情報システム", 
       'g'=> "中小企業経営・政策"
     }
-    @questions = Question.all
-    @themes = Theme.all
     @subject = kamoku[params[:subject]]
     @year = params[:year]
     @qnum = params[:number]
+    if @qnum # 問題番号単位での表示
+      @questions = Question.where(subject: @subject, year: @year, number: @qnum).all
+    else
+      @questions = Question.where(subject: @subject, year: @year).all
+    end
+    @themes = Theme.all
   end
 end

@@ -35,7 +35,7 @@
                     <tr><td>経済学・経済政策</td><td>
                             <% @setofsubyears.select {|i| i.subject == "経済学・経済政策"}.each do |set| %>
                                 <% if set.available %>
-                                    <%= link_to set.year, questions_path %>
+                                    <%= link_to set.year, "/qs/a/#{set.year}" %>
                                 <% else %>
                                     <%= set.year %> 
                                 <% end %>
@@ -100,7 +100,7 @@
 
             <h2>テーマから選ぶ</h2>
 
-            <div class="tabbable tabs-left">
+            <div class="tabbable tabs-top">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#keizai" data-toggle="tab">経済学・経済政策</a></li>
                     <li><a href="#zaimu" data-toggle="tab">財務・会計</a></li>
