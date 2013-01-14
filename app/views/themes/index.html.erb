@@ -1,0 +1,57 @@
+
+<!-- ===== ナビゲーションバー ===== -->
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="http://twitter.com/adeonhy">ひよこ</a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li class="active"><a href="http://www.yahoo.co.jp/">18歳未満はこちら</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero-unit">
+        <h1>中小企業診断士の過去問とか</h1>
+        <p>Twitter Bootstrapすごい</p>
+    </div>
+
+    <div class="row">
+        <div class="span8">
+            <h2><%= @maintheme %> / <%= @subtheme %></h2>
+            <table class="table table-bordered">
+                <!--
+                <thead>
+                    <tr><th>qnum</th><th>sqnum</th><th>tcode</th><th>svg</th></tr>
+                </thead>
+                -->
+                <tbody>
+                    <% if @themecode.nil? %>
+                        <p>テーマが選択されていません</p>
+                    <% else %>
+                        <% q = @themequestions.each do |q| %>
+                            <tr>
+                                <td><%= image_tag "/assets/svg/#{q.svg}" %></td>
+                            </tr>
+                        <% end %>
+                    <% end %>
+                </tbody>
+            </table>
+            <%= link_to 'Topへ', '/' %>
+        </div>
+        <div class="span4">
+            <p>広告？</p>
+            <%= link_to image_tag('/assets/800x648xextu.jpg',:size => "251x206"), 
+                'https://www.google.co.jp/search?q=%E5%B7%9D%E8%B6%8A%E9%81%94%E4%B9%9F&hl=ja&safe=off&tbo=u&tbm=isch&source=univ&sa=X&ei=Vr7zUOPECoWxkAXRlYH4Dg&ved=0CEgQsAQ' %>
+
+        </div>
+    </div>
+</div>

@@ -32,7 +32,11 @@
                             <tr><th>科目</th><th>年度</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>経済学・経済政策</td><td>H24 H23 H22 H21 H20</td></tr>
+                            <tr><td>経済学・経済政策</td><td>
+                                    <% @setofsubyears.where(subject:'経済学・経済政策').each do |set| %>
+                                        <%= set.year %> 
+                                    <% end %>
+                            </td></tr>
                             <tr><td>財務・会計</td><td>H24 H23 H22 H21 H20</td></tr>
                             <tr><td>企業経営理論</td><td>H24 H23 H22 H21 H20</td></tr>
                             <tr><td>運営管理</td><td>H24 H23 H22 H21 H20</td></tr>

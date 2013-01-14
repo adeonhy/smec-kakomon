@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  number: 1
+  subquestion: 1
+  themecode: MyString
+  selectioncount: MyString
+  answer: MyString
+  svg: MyString
+  pdf: MyString
+  png: MyString
+
+two:
+  number: 1
+  subquestion: 1
+  themecode: MyString
+  selectioncount: MyString
+  answer: MyString
+  svg: MyString
+  pdf: MyString
+  png: MyString

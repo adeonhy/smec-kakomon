@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  themecode: MyString
+  maintheme: MyString
+  subtheme: MyString
+
+two:
+  themecode: MyString
+  maintheme: MyString
+  subtheme: MyString
