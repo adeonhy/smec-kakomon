@@ -11,6 +11,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem "therubyracer"
   gem 'less'
+  gem 'less-rails'
 end
 
 group :test, :development do
