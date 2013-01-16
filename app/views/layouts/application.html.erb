@@ -4,8 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><%= content_for?(:title) ? yield(:title) : "Tbsample" %></title>
+        <title><%= content_for?(:title) ? yield(:title) : "中小企業診断士 過去問" %></title>
         <%= csrf_meta_tags %>
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
         <!--[if lt IE 9]>
@@ -36,10 +37,44 @@
     </head>
     <body>
 
-        <%= yield %>
+        <!-- ===== ナビゲーションバー ===== -->
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://twitter.com/adeonhy">ひよこ</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="http://www.yahoo.co.jp/">18歳未満はこちら</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="container">
+            <div class="hero-unit">
+                <h3>中小企業診断士の過去問</h3>
+                <p>効率的な１次対策のために</p>
+            </div>
+            <div class="row">
+                <div class="span9">
+                    <%= yield %>
+                </div>
+
+                <div class="span3">
+                    <p>Ad</p>
+                    <%= link_to image_tag('/assets/800x648xextu.jpg',:size => "251x206"), 
+                        'https://www.google.co.jp/search?q=%E5%B7%9D%E8%B6%8A%E9%81%94%E4%B9%9F&hl=ja&safe=off&tbo=u&tbm=isch&source=univ&sa=X&ei=Vr7zUOPECoWxkAXRlYH4Dg&ved=0CEgQsAQ' %>
+
+                    </div>
+                </div>
         <footer>
-        <p>&copy; Company 2012</p>
+        <p>&copy; hiyoko Company 2013</p>
         </footer>
 
     </div> <!-- /container -->

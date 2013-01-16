@@ -1,158 +1,122 @@
 
-<!-- ===== ナビゲーションバー ===== -->
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="http://twitter.com/adeonhy">ひよこ</a>
-            <div class="nav-collapse">
-                <ul class="nav">
-                    <li class="active"><a href="http://www.yahoo.co.jp/">18歳未満はこちら</a></li>
-                </ul>
-            </div>
+<h2>科目・年度から選ぶ</h2>
+<table class="table table-striped">
+    <thead>
+        <tr><th>科目</th><th>年度</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>経済学・経済政策</td><td>
+                <% @setofsubyears.select {|i| i.subject == "経済学・経済政策"}.each do |set| %>
+                    <% if set.available %>
+                        <%= link_to set.year, "/q/a/#{set.year}" %>
+                    <% else %>
+                        <%= set.year %> 
+                    <% end %>
+                <% end %>
+        </td></tr>
+        <tr><td>財務・会計</td><td>
+                <% @setofsubyears.select {|i| i.subject == "財務・会計"}.each do |set| %>
+                    <% if set.available %>
+                        <%= link_to set.year, "/q/b/#{set.year}" %>
+                    <% else %>
+                        <%= set.year %> 
+                    <% end %>
+                <% end %>
+        </td></tr>
+        <tr><td>企業経営理論</td><td>
+                <% @setofsubyears.select {|i| i.subject == "企業経営理論"}.each do |set| %>
+                    <% if set.available %>
+                        <%= link_to set.year, "/#{set.year}" %>
+                    <% else %>
+                        <%= set.year %> 
+                    <% end %>
+                <% end %>
+        </td></tr>
+        <tr><td>運営管理</td><td>
+                <% @setofsubyears.select {|i| i.subject == "運営管理"}.each do |set| %>
+                    <% if set.available %>
+                        <%= link_to set.year, "/#{set.year}" %>
+                    <% else %>
+                        <%= set.year %> 
+                    <% end %>
+                <% end %>
+        </td></tr>
+        <tr><td>経営法務</td><td>
+                <% @setofsubyears.select {|i| i.subject == "経営法務"}.each do |set| %>
+                    <% if set.available %>
+                        <%= link_to set.year, "/#{set.year}" %>
+                    <% else %>
+                        <%= set.year %> 
+                    <% end %>
+                <% end %>
+        </td></tr>
+        <tr><td>経営情報システム</td><td>
+                <% @setofsubyears.select {|i| i.subject == "経営情報システム"}.each do |set| %>
+                    <% if set.available %>
+                        <%= link_to set.year, "/#{set.year}" %>
+                    <% else %>
+                        <%= set.year %> 
+                    <% end %>
+                <% end %>
+        </td></tr>
+        <tr><td>中小企業経営・政策</td><td>
+                <% @setofsubyears.select {|i| i.subject == "中小企業経営・政策"}.each do |set| %>
+                    <% if set.available %>
+                        <%= link_to set.year, "/#{set.year}" %>
+                    <% else %>
+                        <%= set.year %> 
+                    <% end %>
+                <% end %>
+        </td></tr>
+    </tbody>
+</table>
+
+<h2>テーマから選ぶ</h2>
+
+<div class="tabbable tabs-top">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#keizai" data-toggle="tab">経済学・経済政策</a></li>
+        <li><a href="#zaimu" data-toggle="tab">財務・会計</a></li>
+        <li><a href="#keiei" data-toggle="tab">企業経営理論</a></li>
+        <li><a href="#unei" data-toggle="tab">運営管理</a></li>
+        <li><a href="#houmu" data-toggle="tab">経営法務</a></li>
+        <li><a href="#joho" data-toggle="tab">経営情報システム</a></li>
+        <li><a href="#chusho" data-toggle="tab">中小企業経営政策</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" id="keizai">
+            this is home panel keizai
         </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="hero-unit">
-        <h1>中小企業診断士の過去問</h1>
-        <p>Ruby on Rails と Twitter Bootstrapすごい</p>
-    </div>
-
-    <div class="row">
-        <div class="span8">
-            <h2>科目・年度から選ぶ</h2>
+        <div class="tab-pane active" id="zaimu">
             <table class="table table-striped">
                 <thead>
-                    <tr><th>科目</th><th>年度</th></tr>
+                    <tr><th>メインテーマ</th><th>サブテーマ</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>経済学・経済政策</td><td>
-                            <% @setofsubyears.select {|i| i.subject == "経済学・経済政策"}.each do |set| %>
-                                <% if set.available %>
-                                    <%= link_to set.year, "/qs/a/#{set.year}" %>
-                                <% else %>
-                                    <%= set.year %> 
-                                <% end %>
-                            <% end %>
-                    </td></tr>
-                    <tr><td>財務・会計</td><td>
-                            <% @setofsubyears.select {|i| i.subject == "財務・会計"}.each do |set| %>
-                                <% if set.available %>
-                                    <%= link_to set.year, "/qs/b/#{set.year}" %>
-                                <% else %>
-                                    <%= set.year %> 
-                                <% end %>
-                            <% end %>
-                    </td></tr>
-                    <tr><td>企業経営理論</td><td>
-                            <% @setofsubyears.select {|i| i.subject == "企業経営理論"}.each do |set| %>
-                                <% if set.available %>
-                                    <%= link_to set.year, "/#{set.year}" %>
-                                <% else %>
-                                    <%= set.year %> 
-                                <% end %>
-                            <% end %>
-                    </td></tr>
-                    <tr><td>運営管理</td><td>
-                            <% @setofsubyears.select {|i| i.subject == "運営管理"}.each do |set| %>
-                                <% if set.available %>
-                                    <%= link_to set.year, "/#{set.year}" %>
-                                <% else %>
-                                    <%= set.year %> 
-                                <% end %>
-                            <% end %>
-                    </td></tr>
-                    <tr><td>経営法務</td><td>
-                            <% @setofsubyears.select {|i| i.subject == "経営法務"}.each do |set| %>
-                                <% if set.available %>
-                                    <%= link_to set.year, "/#{set.year}" %>
-                                <% else %>
-                                    <%= set.year %> 
-                                <% end %>
-                            <% end %>
-                    </td></tr>
-                    <tr><td>経営情報システム</td><td>
-                            <% @setofsubyears.select {|i| i.subject == "経営情報システム"}.each do |set| %>
-                                <% if set.available %>
-                                    <%= link_to set.year, "/#{set.year}" %>
-                                <% else %>
-                                    <%= set.year %> 
-                                <% end %>
-                            <% end %>
-                    </td></tr>
-                    <tr><td>中小企業経営・政策</td><td>
-                            <% @setofsubyears.select {|i| i.subject == "中小企業経営・政策"}.each do |set| %>
-                                <% if set.available %>
-                                    <%= link_to set.year, "/#{set.year}" %>
-                                <% else %>
-                                    <%= set.year %> 
-                                <% end %>
-                            <% end %>
-                    </td></tr>
+                    <% @themes.each do |t| %>
+                        <tr>
+                            <td><%= t.maintheme %></td>
+                            <td><%= link_to t.subtheme, "/theme/#{t.themecode}" %>
+                                <span class="badge badge-success"><%= @themescount[t.themecode] %></span></td>
+                        </tr>
+                    <% end %>
                 </tbody>
             </table>
-
-            <h2>テーマから選ぶ</h2>
-
-            <div class="tabbable tabs-top">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#keizai" data-toggle="tab">経済学・経済政策</a></li>
-                    <li><a href="#zaimu" data-toggle="tab">財務・会計</a></li>
-                    <li><a href="#keiei" data-toggle="tab">企業経営理論</a></li>
-                    <li><a href="#unei" data-toggle="tab">運営管理</a></li>
-                    <li><a href="#houmu" data-toggle="tab">経営法務</a></li>
-                    <li><a href="#joho" data-toggle="tab">経営情報システム</a></li>
-                    <li><a href="#chusho" data-toggle="tab">中小企業経営政策</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane" id="keizai">
-                        this is home panel keizai
-                    </div>
-                    <div class="tab-pane active" id="zaimu">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr><th>メインテーマ</th><th>サブテーマ</th></tr>
-                            </thead>
-                            <tbody>
-                                <% @themes.each do |t| %>
-                                    <tr>
-                                        <td><%= t.maintheme %></td>
-                                        <td><%= link_to t.subtheme, "/theme/#{t.themecode}" %>
-                                            <span class="badge badge-success"><%= @themescount[t.themecode] %></span></td>
-                                    </tr>
-                                <% end %>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tab-pane" id="keiei">
-                        this is calendar panelkeiei
-                    </div>
-                    <div class="tab-pane" id="unei">
-                        this is account panel unei
-                    </div>
-                    <div class="tab-pane" id="houmu">
-                        this is account panel houmu
-                    </div>
-                    <div class="tab-pane" id="joho">
-                        this is account panel
-                    </div>
-                    <div class="tab-pane" id="chusho">
-                        this is account panel
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="span4">
-            <p>広告？
-            <%= link_to image_tag('/assets/800x648xextu.jpg',:size => "251x206"), 
-                'https://www.google.co.jp/search?q=%E5%B7%9D%E8%B6%8A%E9%81%94%E4%B9%9F&hl=ja&safe=off&tbo=u&tbm=isch&source=univ&sa=X&ei=Vr7zUOPECoWxkAXRlYH4Dg&ved=0CEgQsAQ' %>
-
+        <div class="tab-pane" id="keiei">
+            this is calendar panelkeiei
+        </div>
+        <div class="tab-pane" id="unei">
+            this is account panel unei
+        </div>
+        <div class="tab-pane" id="houmu">
+            this is account panel houmu
+        </div>
+        <div class="tab-pane" id="joho">
+            this is account panel
+        </div>
+        <div class="tab-pane" id="chusho">
+            this is account panel
         </div>
     </div>
 </div>

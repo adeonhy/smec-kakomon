@@ -1,12 +1,13 @@
 Tbsample::Application.routes.draw do
 #  get "pages/index"
 
-  resources :setofsubyears
-  resources :themes
+  # resources :setofsubyears
+  # resources :themes
   root :to => 'setofsubyears#index'
 
-  match 'qs/:subject/:year' => 'questions#index'
-  match 'qs/:subject/:year/:number' => 'questions#index'
+  match 'q/:subject/:year' => 'questions#index'
+  match 'q/:subject/:year/:number' => 'questions#show'
+  match 'q/:subject/:year/:number/ans/:answer' => 'questions#answer'
   match 'theme/:themecode' => 'themes#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
