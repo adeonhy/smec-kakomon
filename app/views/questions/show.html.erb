@@ -1,6 +1,12 @@
 
+<ul class="breadcrumb">
+    <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
+    <li><%= link_to "#{@year} 年度 #{@kamoku}", "/q/#{@questions.first.subject}/#{@year}" %>
+        <span class="divider">/</span></li>
+    <li class="active"><%= "第#{@questions.first.number}問" %></li>
+</ul>
 
-<h2><%= @year %>年度 <%= @subject %></h2>
+<h2><%= @year %>年度 <%= @kamoku %></h2>
 <table class="table table-bordered">
     <!--
     <thead>
@@ -9,47 +15,93 @@
     -->
     <tbody>
         <% @questions.each do |q| %>
-            <tr>
-                <td>
-                    <p><%= image_tag "/assets/svg/#{q.svg}" %></p>
-                    <%  (1..q.subquestion).each do |i| %>
-                        <% if not q.subquestion == 1 %>
-                            <p><span class="label label-inverse">【設問<%= i %>】</span></p> 
-                        <% end %>
-                        <p><div class="btn-group" id="selection-<%= i %>">
-                            <% %w(ア イ ウ エ オ).first(q.selectioncount.split(',')[i-1].to_i).each do |s| %>
-                            <%= link_to s, "/q/#{@kamokucode}/#{q.year}/#{q.number}/ans/#{s}",
-                                        class: "btn btn-primary", id: "answer-#{i}", remote: true %>
-                            <% end %>
-                        </div>
-                        <div id="check-answer-<%= i %>"></div></p>
-                        <script>
-                            $(function() {
-                                $('#answer-<%= i %>').live('ajax:success', function(e, data, status, xhr){
-                                    //alert(data.answer);
-                                    //alert(data.correct);
-                                    if (data.correct) {
-                                        $('#check-answer-<%= i %>').html(data.answer+ ":正解!").css("color","blue");
-                                    } else {
-                                    $('#check-answer-<%= i %>').html("不正解"+ "         正解は・・・"+data.right).css("color", "red");
-                                    }
-                                    $('#selection-<%= i %>').hide();
-                                }) .live('ajax:error', function(e, data, status, xhr) {
-                                    alert("error");
-                                });
-                            });
-                        </script>
-                    <% end %>
-                </td>
-            </tr>
+            <tr><td>
+                    <% @question = q %>
+                    <%= render partial: "shared/questions", object: @question %>
+            </td></tr>
         <% end %>
     </tbody>
 </table>
-<h3>同じテーマの問題</h3>
-<p><%= link_to "#{@theme.maintheme}/#{@theme.subtheme}", "/theme/#{@theme.themecode}" %></p>
-<ul>
-    <% @themequestions.each do |q| %>
-        <li><%= link_to "#{q.year}年 第#{q.number}問", "/q/#{@kamokucode}/#{q.year}/#{q.number}" %></li>
-    <% end %>
-</ul>    
+
+<div class="tabbable tabs-top">
+    <ul class="nav nav-tabs">
+        <li class="active">
+        <a href="#kanren" data-toggle="tab">関連情報(<%= @questions.first.comments.count %>)</a></li>
+        <li>
+        <a href="#theme" data-toggle="tab">同じテーマの出題状況(<%= @themequestions.count %>)</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active", id="kanren">
+            <% if @questions.first.comments.any? %>
+                <ul>
+                    <% @questions.first.comments.each do |c| %>
+                        <% if c.id %>
+                            <li id="comment_<%= c.id %>">
+                            <%= c.body %> by <%= c.commenter %>
+                            <%= link_to content_tag('i', '', class: 'icon-trash'),
+                                "/q/#{@questions.first.subject}/#{@questions.first.year}/#{@questions.first.number}/c/#{c.id}",
+                            confirm: "削除してもよろしいですか？", method: :delete, remote: true %>
+                            </li>
+                        <% end %>
+                    <% end %>
+                </ul>
+            <% else %>
+                <p>関連情報はありません。</p>
+            <% end %>
+
+            <%= form_for( @questions.first.comments, url: "/q/#{@questions.first.subject}/#{@questions.first.year}/#{@questions.first.number}/c", method: 'POST') do |f| %>
+                <% if @comment.errors.any? %>
+                    <ul>
+                        <% @comment.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                        <% end %>
+                    </ul>
+                <% end %>
+                <div class="field">
+                    <%= f.label :commenter %>
+                    <%= f.text_field :commenter %>
+                </div>
+                <div class="field">
+                    <%= f.label :body %>
+                    <%= f.text_area :body, rows: 5 %>
+                </div>
+                <div class="actions">
+                    <%= f.submit %>
+                </div>
+            <% end %>
+        </div>
+        <div class="tab-pane", id="theme">
+            <p><%= link_to "#{@theme.maintheme}/#{@theme.subtheme}", "/theme/#{@theme.themecode}" %></p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr><td>2012年</td><td>2011年</td><td>2010年</td><td>2009年</td><td>2008年</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <% [2012, 2011, 2010, 2009, 2008].each do |year| %>
+                            <td>
+                                <% yearqestions = @themequestions.select{|x|x.year==year}.each do |q| %>
+                                    <p><%= link_to "第#{q.number}問", "/q/#{q.subject}/#{q.year}/#{q.number}" %></p>
+                                <% end %>
+                                <%= "-" if yearqestions.empty? %>
+                            </td>
+                        <% end %>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
 <%= link_to 'Topへ', '/' %>
+
+<script>
+    $(function() {
+        $('a[data-method="delete"]').live('ajax:success', function(e, data, status, xhr){
+           // alert("deleted!");
+           $('#comment_' + data.comment.id).fadeOut("slow");
+        });
+    });
+</script>

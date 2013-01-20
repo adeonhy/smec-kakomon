@@ -1,11 +1,15 @@
 
+<ul class="breadcrumb">
+    <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
+    <li class="active"><%= @year %>年度 <%= @kamoku %></li>
+</ul>
 
-<h2><%= @year %>年度 <%= @subject %></h2>
+<h2><%= @year %>年度 <%= @kamoku %></h2>
 <ul class="thumbnails">
     <% @questions.each do |q| %>
         <li class="span3">
         <div class="thumbnail">
-            <%= link_to (image_tag "/assets/svg/#{q.svg}", height:"100"), "/q/#{@kamokucode}/#{q.year}/#{q.number}" %>
+            <%= link_to (image_tag "/assets/svg/#{q.svg}", height:"100"), "/q/#{@subject}/#{q.year}/#{q.number}" %>
             <!-- <%= (image_tag "/assets/svg/#{q.svg}", height:"100") %> -->
             <div class="caption">
                 <h5>第<%= q.number %>問</h5>

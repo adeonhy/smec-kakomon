@@ -9,6 +9,19 @@ Tbsample::Application.routes.draw do
   match 'q/:subject/:year/:number' => 'questions#show'
   match 'q/:subject/:year/:number/ans/:answer' => 'questions#answer'
   match 'theme/:themecode' => 'themes#index'
+
+  match 'q/:subject/:year/:number/c' => 'comments#index', :via => :get
+  match 'q/:subject/:year/:number/c' => 'comments#create', :via => :post, :as => 'question_comments'
+  match 'q/:subject/:year/:number/c/new' => 'comments#new'
+  match 'q/:subject/:year/:number/c/:id/edit' => 'comments#edit'
+  # match 'q/:subject/:year/:number/c/:id' => 'comments#show'
+  match 'q/:subject/:year/:number/c/:id' => 'comments#update', :via => :put
+  match 'q/:subject/:year/:number/c/:id' => 'comments#destroy', :via => :delete
+
+  # resources :questions do
+    # resources :comments
+  # end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -12,8 +12,8 @@ class QuestionsController < ApplicationController
   }
 
   def index #/q/:subject/:year
-    @kamokucode = params[:subject]
-    @subject = Kamoku[@kamokucode]
+    @subject = params[:subject]
+    @kamoku = Kamoku[@subject]
     @year = params[:year]
     @qnum = params[:number]
     @questions = Question.where(subject: @subject, year: @year).all
@@ -24,23 +24,27 @@ class QuestionsController < ApplicationController
   end
 
   def show #/q/:subject/:year/:number
-    @kamokucode = params[:subject]
-    @subject = Kamoku[@kamokucode]
+    @subject = params[:subject]
+    @kamoku = Kamoku[@subject]
     @year = params[:year]
     @qnum = params[:number]
     @questions = Question.where(subject: @subject, year: @year, number: @qnum).all
     @theme = Theme.where(themecode: @questions.first.themecode).first
     @themequestions = Question.where(themecode: @questions.first.themecode).all
+    
+    @comment = @questions.first.comments.build
   end
 
   def answer
-    @kamokucode = params[:subject]
-    @subject = Kamoku[@kamokucode]
+    @subject = params[:subject]
+    @kamoku = Kamoku[@subject]
     @year = params[:year]
     @qnum = params[:number]
     @answer = params[:answer]
-    @right = Question.where(subject: @subject, year: @year, number: @qnum).first.answer.split(',').first
+    @section_num = @answer.count(',') # 複数設問対応
+    @right = Question.where(subject: @subject, year: @year, number: @qnum).first.answer.split(',')[@section_num]
+    @answer.delete!(',')
     @correct = (@answer == @right)
-    render json: { answer: @answer, correct: @correct, right: @right }
+    render json: { answer: @answer, correct: @correct, right: @right, section: @section_num }
   end
 end

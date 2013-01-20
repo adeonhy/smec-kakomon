@@ -1,0 +1,30 @@
+<p><%= image_tag "/assets/svg/#{@question.svg}" %></p>
+<%  (1..@question.subquestion).each do |i| %>
+    <% rnd = SecureRandom.hex(4) %>
+    <% if not @question.subquestion == 1 %>
+        <p><span class="label label-inverse">【設問<%= i %>】</span></p> 
+    <% end %>
+    <p><div class="btn-group" id="selection-<%= rnd %>">
+        <% %w(ア イ ウ エ オ).first(@question.selectioncount.split(',')[i-1].to_i).each do |s| %>
+            <%= link_to s, "/q/#{@question.subject}/#{@question.year}/#{@question.number}/ans/#{','*(i-1)+s}",
+            class: "btn btn-primary", id: "answer-#{rnd}", remote: true %>
+        <% end %>
+    </div>
+    <div id="check-answer-<%= rnd %>"></div></p>
+    <script>
+        $(function() {
+            $('#answer-<%= rnd %>').live('ajax:success', function(e, data, status, xhr){
+                //alert(data.answer);
+                //alert(data.correct);
+                if (data.correct) {
+                    $('#check-answer-<%= rnd %>').html(data.answer+ ":正解!").css("color","blue");
+                    } else {
+                    $('#check-answer-<%= rnd %>').html("不正解"+ "         正解は・・・"+data.right).css("color", "red");
+                }
+                $('#selection-<%= rnd %>').hide();
+                }) .live('ajax:error', function(e, data, status, xhr) {
+                alert("error");
+            });
+        });
+    </script>
+<% end %>

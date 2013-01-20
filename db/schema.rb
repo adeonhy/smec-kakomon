@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130114162638) do
+ActiveRecord::Schema.define(:version => 20130119205614) do
+
+  create_table "comments", :force => true do |t|
+    t.string   "commenter"
+    t.text     "body"
+    t.integer  "question_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "comments", ["question_id"], :name => "index_comments_on_question_id"
 
   create_table "questions", :force => true do |t|
     t.integer  "number"

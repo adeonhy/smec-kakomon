@@ -42,46 +42,18 @@ def csv2question(csv)
   end
 end
 
+def csv2setofsubyear(csv)
+  CSV.foreach(csv,headers: true) do |row|
+    Setofsubyear.create(subject: row[0], year:row[1], available:row[2])
+  end
+end
+
+csv2setofsubyear('db/setofsubyear.csv')
 csv2question('db/b1ji2012.csv')
 csv2question('db/b1ji2011.csv')
 csv2question('db/b1ji2010.csv')
+csv2question('db/a1ji2012.csv')
+csv2theme('db/theme_keizai.csv')
 csv2theme('db/theme_zaimu.csv')
-
-setofsubyears = Setofsubyear.create([
-           {subject:'経済学・経済政策', year:'2012', available:false},
-           {subject:'経済学・経済政策', year:'2011', available:false},
-           {subject:'経済学・経済政策', year:'2010', available:false},
-           {subject:'経済学・経済政策', year:'2009', available:false},
-           {subject:'経済学・経済政策', year:'2008', available:false},
-           {subject:'財務・会計', year:'2012', available:true},
-           {subject:'財務・会計', year:'2011', available:true},
-           {subject:'財務・会計', year:'2010', available:true},
-           {subject:'財務・会計', year:'2009', available:false},
-           {subject:'財務・会計', year:'2008', available:false},
-           {subject:'企業経営理論', year:'2012', available:false},
-           {subject:'企業経営理論', year:'2011', available:false},
-           {subject:'企業経営理論', year:'2010', available:false},
-           {subject:'企業経営理論', year:'2009', available:false},
-           {subject:'企業経営理論', year:'2008', available:false},
-           {subject:'運営管理', year:'2012', available:false},
-           {subject:'運営管理', year:'2011', available:false},
-           {subject:'運営管理', year:'2010', available:false},
-           {subject:'運営管理', year:'2009', available:false},
-           {subject:'運営管理', year:'2008', available:false},
-           {subject:'経営法務', year:'2012', available:false},
-           {subject:'経営法務', year:'2011', available:false},
-           {subject:'経営法務', year:'2010', available:false},
-           {subject:'経営法務', year:'2009', available:false},
-           {subject:'経営法務', year:'2008', available:false},
-           {subject:'経営情報システム', year:'2012', available:false},
-           {subject:'経営情報システム', year:'2011', available:false},
-           {subject:'経営情報システム', year:'2010', available:false},
-           {subject:'経営情報システム', year:'2009', available:false},
-           {subject:'経営情報システム', year:'2008', available:false},
-           {subject:'中小企業経営・政策', year:'2012', available:false},
-           {subject:'中小企業経営・政策', year:'2011', available:false},
-           {subject:'中小企業経営・政策', year:'2010', available:false},
-           {subject:'中小企業経営・政策', year:'2009', available:false},
-           {subject:'中小企業経営・政策', year:'2008', available:false},
-])
+csv2theme('db/theme_keiei.csv')
 

@@ -1,4 +1,41 @@
-<h3><%= @maintheme %> / <%= @subtheme %></h3>
+
+<h3><%= @maintheme %> <%= "#{"/ " + @subtheme if not @mainthemecode}" %></h3>
+<% if @mainthemecode %>
+
+<ul class="breadcrumb">
+    <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
+    <li class="active"><%= "#{@kamoku} #{@maintheme}" %></li>
+</ul>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>サブテーマ</th><th>2012年</th><th>2011年</th><th>2010年</th><th>2009年</th><th>2008年</th></tr>
+    </thead>
+    <tbody>
+        <% @subthemes.each do |s| %>
+            <tr>
+                <td>
+                    <%= link_to s.subtheme, "/theme/#{s.themecode}" %>
+                    <span class="badge badge-success"><%= @subthemescount[s.themecode] %></span>
+                </td>
+                <% [2012, 2011, 2010, 2009, 2008].each do |year| %>
+                    <td>
+                        <% yearqestions = @themequestions.select { |x| %>
+                            <% (x.year==year) && (x.themecode == s.themecode)}.each do |q| %>
+                                <p><%= link_to "第#{q.number}問", "/q/#{q.subject}/#{q.year}/#{q.number}" %></p>
+                            <% end %>
+                            <%= "-" if yearqestions.empty? %>
+                    </td>
+                <% end %>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<% else %>
+<ul class="breadcrumb">
+    <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
+    <li><%= link_to @maintheme, "/theme/#{@themecode[0..2]}" %><span class="divider">/</span></li>
+    <li class="active"><%= "#{@subtheme}" %></li>
+</ul>
 <table class="table table-bordered">
     <!--
     <thead>
@@ -9,15 +46,17 @@
         <% if @themecode.nil? %>
             <p>テーマが選択されていません</p>
         <% else %>
-            <% q = @themequestions.each do |q| %>
+            <% @themequestions.each do |q| %>
                 <tr>
                     <td>
-                        <p><%= q.year %>年 第<%= q.number %>問</p>
-                        <%= image_tag "/assets/svg/#{q.svg}" %>
+                        <% @question = q %>
+                        <%= "#{q.year} 年" %>
+                        <%= render partial: "shared/questions", object: @question %> 
                     </td>
                 </tr>
             <% end %>
         <% end %>
     </tbody>
 </table>
+<% end %>
 <%= link_to 'Topへ', '/' %>
