@@ -1,0 +1,58 @@
+
+<ul class="breadcrumb">
+    <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
+    <li class="active">マイページ</li>
+</ul>
+
+<% unless @user %>
+    <div alert="alert alert-error">
+        <p>ログインしていません</p>
+        <a href="/auth/open_id?openid_url=https://www.google.com/accounts/o8/id" style="color: #fefefe">ログイン</a>
+    </div>
+<% else %>
+<h4>解答の履歴</h4>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>日時</th>
+            <th>科目</th>
+            <th>年度/問数</th>
+            <th>テーマ</th>
+            <th>サブテーマ</th>
+            <th>正解/不正解</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @user.answer_logs.each do |l| %>
+            <% if l.id %>
+                <% q = Question.find(l.question_id) %>
+                <tr style="cursor: pointer"
+                    data-href=<%= "/q/#{q.subject}/#{q.year}/#{q.number}" %>
+                    class="<%= l.correct ? "success" : "error" %>">
+                    <td> <%= l.created_at %></td>
+                    <td> <%= q.kamoku %></td>
+                    <td> <%= "#{q.year}年 第#{q.number}問" %></td>
+                    <td><%= q.maintheme%></td>
+                    <td><%= q.subtheme%></td>
+                    <td><%= l.correct ? " ◯  " : "×  "%></td>
+                </tr>
+                <% end %>
+        <% end %>
+    </tbody>
+</table>
+
+<script>
+    jQuery( function($) {
+        $('tbody tr[data-href]').addClass('clickable').click( function() {
+            window.location = $(this).attr('data-href');
+            }).find('a').hover( function() {
+            $(this).parents('tr').unbind('click');
+            }, function() {
+            $(this).parents('tr').click( function() {
+                window.location = $(this).attr('data-href');
+            });
+        });
+    });
+</script>
+<% end %>
+<%= link_to 'Topへ', '/' %>
