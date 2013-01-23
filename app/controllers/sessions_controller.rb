@@ -11,4 +11,13 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_url, :notice => "ログアウトしました。"
   end
+
+  def mypage
+    if uid = session[:user_id]
+      @user = User.find(uid)
+      @user.answer_logs.build
+    else
+      @user = nil
+    end
+  end
 end

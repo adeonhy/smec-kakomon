@@ -1,9 +1,9 @@
 Tbsample::Application.routes.draw do
-#  get "pages/index"
-
-  # resources :setofsubyears
-  # resources :themes
   root :to => 'setofsubyears#index'
+  
+  match 'auth/:provider/callback' => 'sessions#create'
+  match '/logout' => 'sessions#destroy', :as => :logout
+  match '/my' => 'sessions#mypage', :as => :mypage
 
   match 'q/:subject/:year' => 'questions#index'
   match 'q/:subject/:year/:number' => 'questions#show'
@@ -18,8 +18,6 @@ Tbsample::Application.routes.draw do
   match 'q/:subject/:year/:number/c/:id' => 'comments#update', :via => :put
   match 'q/:subject/:year/:number/c/:id' => 'comments#destroy', :via => :delete
 
-  match 'auth/:provider/callback' => 'sessions#create'
-  match '/logout' => 'sessions#destroy', :as => :logout
 
   # resources :questions do
     # resources :comments

@@ -38,7 +38,7 @@
     <body>
 
         <!-- ===== ナビゲーションバー ===== -->
-        <div class="navbar navbar-fixed-top navbar-inverse" style="color: red">
+        <div class="navbar navbar-fixed-top navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -46,16 +46,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="/" style="color: #fefefe">かこ★もん</a>
-                    <% if current_user %>
-                        <%= current_user.name %>
-                        <%= link_to "ログアウト", logout_path %>
-                    <% else %>
-                        <a href="/auth/open_id?openid_url=https://www.google.com/accounts/o8/id" style="color: #fefefe">ログイン</a>
-                    <% end %>
+                    <a class="brand" href="/" style="color: #fefefe">診断士の過去問</a>
                     <div class="nav-collapse">
+                        <p class="navbar-text pull-right">
+                        <% if current_user %>
+                            <a href="#" class="navbar-link">Login as: <%= current_user.name %></a>
+                            <%= link_to "ログアウト", logout_path %>
+                        <% else %>
+                            <a href="/auth/open_id?openid_url=https://www.google.com/accounts/o8/id" style="color: #fefefe">ログイン</a>
+                        <% end %>
+                        </p>
                         <ul class="nav">
-                            <li class="active"><a href="http://www.yahoo.co.jp/">18歳未満はこちら</a></li>
+                            <li><%= link_to content_tag("i", 'マイページ', {class: "icon-home icon-white"}), mypage_path %></li>
                         </ul>
                     </div>
                 </div>

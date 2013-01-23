@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123143617) do
+ActiveRecord::Schema.define(:version => 20130123155409) do
+
+  create_table "answer_logs", :force => true do |t|
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.boolean  "correct"
+    t.string   "choose"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "section_num"
+  end
+
+  add_index "answer_logs", ["question_id"], :name => "index_answer_logs_on_question_id"
+  add_index "answer_logs", ["user_id"], :name => "index_answer_logs_on_user_id"
 
   create_table "comments", :force => true do |t|
     t.string   "commenter"

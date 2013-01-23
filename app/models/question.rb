@@ -2,6 +2,7 @@
 class Question < ActiveRecord::Base
   attr_accessible :answer, :number, :pdf, :png, :selectioncount, :subquestion, :svg, :themecode, :subject, :year
   has_many :comments
+  has_many :answer_logs
 
   def self.to_kamoku(subject_code)
     { 
