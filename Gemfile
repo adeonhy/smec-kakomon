@@ -6,6 +6,8 @@ gem 'twitter-bootstrap-rails'
 
 gem 'jpmobile'
 gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-openid'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119205614) do
+ActiveRecord::Schema.define(:version => 20130123143617) do
 
   create_table "comments", :force => true do |t|
     t.string   "commenter"
@@ -50,6 +50,16 @@ ActiveRecord::Schema.define(:version => 20130119205614) do
     t.string   "themecode"
     t.string   "maintheme"
     t.string   "subtheme"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.text     "config"
+    t.text     "set"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

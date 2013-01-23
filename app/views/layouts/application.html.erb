@@ -47,7 +47,12 @@
                         <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="/" style="color: #fefefe">かこ★もん</a>
-                    <a href="/auth/twitter" style="color: #fefefe">ログイン</a>
+                    <% if current_user %>
+                        <%= current_user.name %>
+                        <%= link_to "ログアウト", logout_path %>
+                    <% else %>
+                        <a href="/auth/open_id?openid_url=https://www.google.com/accounts/o8/id" style="color: #fefefe">ログイン</a>
+                    <% end %>
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li class="active"><a href="http://www.yahoo.co.jp/">18歳未満はこちら</a></li>
@@ -57,37 +62,6 @@
             </div>
         </div>
 
-        <%# <div class="topbar" id="lesson_show_page"> %>
-            <%# <div class="fill"> %>
-                <%# <div class="container">  %>
-                    <%# <h3 style="margin:0;padding:0"> %>
-                        <%# <a class="logo" style="padding:0;margin:0" href="/"> %>
-                            <%# かこ★もん[> <img src="/img/top_banner.png" width="395" height="35"> <] %>
-                        <%# </a> %>
-                    <%# </h3>  %>
-                    <%# <ul>  %>
-                        <%# <li ><a href="/"><i class="icon-home icon-white"></i>Home</a></li> %>
-                        <%# [> <li class="active"><a href="/lessons"><i class="icon-film icon-white"></i> レッスン一覧</a></li> <] %>
-                        <%# [> <li ><a href="/courses"><i class="icon-pencil icon-white"></i> 通信添削コース</a></li> <] %>
-                    <%# </ul>  %>
-                    <%# <ul class="secondary-nav" data-dropdown="dropdown">  %>
-                        <%# [> <li><img src="http://a0.twimg.com/profile_images/2720885846/4b14c9b356fca6d84ed10167f7dca2d7_normal.jpeg" width="24" height="24" class="topBarIcon"></li> <] %>
-                        <%# <li class="dropdown">  %>
-                        <%# <a href="#" class="dropdown-toggle"> %>
-                            <%# <strong>ログイン</strong> %>
-                        <%# </a>  %>
-                        <%# <ul class="dropdown-menu">  %>
-                            <%# <li><a href="/users/adeonhy">プロフィール</a></li>  %>
-                            <%# <li><a href="/user/settings">設定変更</a></li> %>
-                            <%# <li><a href="/help">ヘルプ</a></li> %>
-                            <%# <li class="divider"></li>  %>
-                            <%# [> <li><a href="#" onclick="$('#logout-form').submit();">ログアウト</a><form id="logout-form" action="/logout.php" method="post" style="display:none;"><input type="hidden" name="one_time_token" value="f11c927e45d2353c6afe8b8545784ac2" /></form></li>  <] %>
-                        <%# </ul> %>
-                        <%# </li> %>
-                    <%# </ul> %>
-                <%# </div>[> /container <] %>
-            <%# </div>[> /fill <] %>
-        <%# </div>[> /topbar <] %>
 
         <div class="container">
             <% if request.smart_phone? %>
@@ -100,6 +74,17 @@
             <% end %>
             <div class="row">
                 <div class="span9">
+                    <% if flash[:notice] %>
+                        <div class="alert alert-success">
+                            <button class="close" data-dismiss="alert">&times;</button>
+                            <%= flash[:notice] %>
+                        </div>
+                     <% elsif flash[:alert] %>
+                        <div class="alert alert-error">
+                            <button class="close" data-dismiss="alert">&times;</button>
+                            <%= flash[:alert] %>
+                        </div>
+                    <% end %>
                     <%= yield %>
                 </div>
 

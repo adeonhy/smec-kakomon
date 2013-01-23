@@ -18,6 +18,9 @@ Tbsample::Application.routes.draw do
   match 'q/:subject/:year/:number/c/:id' => 'comments#update', :via => :put
   match 'q/:subject/:year/:number/c/:id' => 'comments#destroy', :via => :delete
 
+  match 'auth/:provider/callback' => 'sessions#create'
+  match '/logout' => 'sessions#destroy', :as => :logout
+
   # resources :questions do
     # resources :comments
   # end
