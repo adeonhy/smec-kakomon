@@ -48,16 +48,14 @@
                     </a>
                     <a class="brand" href="/" style="color: #fefefe">診断士の過去問</a>
                     <div class="nav-collapse">
-                        <p class="navbar-text pull-right">
-                        <% if current_user %>
-                            <a href="#" class="navbar-link">Login as: <%= current_user.name %></a>
-                            <%= link_to "ログアウト", logout_path %>
-                        <% else %>
-                            <a href="/auth/open_id?openid_url=https://www.google.com/accounts/o8/id" style="color: #fefefe">ログイン</a>
-                        <% end %>
-                        </p>
                         <ul class="nav">
                             <li><%= link_to content_tag("i", 'マイページ', {class: "icon-home icon-white"}), mypage_path %></li>
+                        <% if current_user %>
+                            <li class="active"><a href="#">Login as: <%= current_user.name %></a></li>
+                            <li><%= link_to "ログアウト", logout_path %></li>
+                        <% else %>
+                            <li><a href="/auth/open_id?openid_url=https://www.google.com/accounts/o8/id" style="color: #fefefe">ログイン</a></li>
+                        <% end %>
                         </ul>
                     </div>
                 </div>
