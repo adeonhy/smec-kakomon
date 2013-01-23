@@ -4,7 +4,46 @@
     <li class="active"><%= @year %>年度 <%= @kamoku %></li>
 </ul>
 
-<h2><%= @year %>年度 <%= @kamoku %></h2>
+<h4><%= @year %>年度 <%= @kamoku %></h4>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>問数</th>
+            <th>テーマ</th>
+            <th>サブテーマ</th>
+            <th>難易度</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @questions.each do |q| %>
+            <tr style="cursor: pointer" data-href=<%= "/q/#{@subject}/#{q.year}/#{q.number}" %>> 
+                <td style="white-space: nowrap">
+                    <%= link_to "第#{q.number}問","/q/#{@subject}/#{q.year}/#{q.number}" %>
+                </td>
+                <td><%= q.maintheme %></td>
+                <td><%= q.subtheme %></td>
+                <td>-</td>
+            </tr>
+        </a>
+        <% end %>
+    </tbody>
+</table>
+
+<script>
+    jQuery( function($) {
+        $('tbody tr[data-href]').addClass('clickable').click( function() {
+            window.location = $(this).attr('data-href');
+            }).find('a').hover( function() {
+            $(this).parents('tr').unbind('click');
+            }, function() {
+            $(this).parents('tr').click( function() {
+                window.location = $(this).attr('data-href');
+            });
+        });
+    });
+</script>
+
+<% if false %>
 <ul class="thumbnails">
     <% @questions.each do |q| %>
         <li class="span3">
@@ -19,4 +58,5 @@
         </li>
     <% end %>
 </ul>
+<% end %>
 <%= link_to 'Topへ', '/' %>

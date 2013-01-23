@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 gem 'jquery-rails'
-
 gem 'twitter-bootstrap-rails'
+
+gem 'jpmobile'
+gem 'omniauth-twitter'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

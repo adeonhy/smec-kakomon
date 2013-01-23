@@ -1,12 +1,12 @@
 
 <ul class="breadcrumb">
     <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
-    <li><%= link_to "#{@year} 年度 #{@kamoku}", "/q/#{@questions.first.subject}/#{@year}" %>
+    <li><%= link_to "#{@year} 年度 #{@kamoku}", "/q/#{@question.subject}/#{@year}" %>
         <span class="divider">/</span></li>
-    <li class="active"><%= "第#{@questions.first.number}問" %></li>
+    <li class="active"><%= "第#{@question.number}問" %></li>
 </ul>
 
-<h2><%= @year %>年度 <%= @kamoku %></h2>
+<h4><%= @year %>年度 <%= @kamoku %></h4>
 <table class="table table-bordered">
     <!--
     <thead>
@@ -14,33 +14,49 @@
     </thead>
     -->
     <tbody>
-        <% @questions.each do |q| %>
-            <tr><td>
-                    <% @question = q %>
-                    <%= render partial: "shared/questions", object: @question %>
-            </td></tr>
-        <% end %>
+        <tr><td>
+                <%= render partial: "shared/questions", object: @question %>
+        </td></tr>
     </tbody>
 </table>
+
+<ul class="pager">
+    <% p = @question.prev %>
+    <% n = @question.next %>
+    <li class="previous">
+    <% if p %>
+        <%= link_to("＜前の問題", "/q/#{p.subject}/#{p.year}/#{p.number}") %>
+    <% else %>
+        <%= link_to("#{@question.year}年#{@question.kamoku}", "/q/#{@question.subject}/#{@question.year}") %>
+    <% end %>
+    </li>
+    <li class="next">
+    <% if n %>
+        <%= link_to("次の問題＞", "/q/#{n.subject}/#{n.year}/#{n.number}") %>
+    <% else %>
+        <%= link_to("#{@question.year}年#{@question.kamoku}", "/q/#{@question.subject}/#{@question.year}") %>
+    <% end %>
+    </li>
+</ul>
 
 <div class="tabbable tabs-top">
     <ul class="nav nav-tabs">
         <li class="active">
-        <a href="#kanren" data-toggle="tab">関連情報(<%= @questions.first.comments.count %>)</a></li>
+        <a href="#kanren" data-toggle="tab">関連情報(<%= @question.comments.count %>)</a></li>
         <li>
         <a href="#theme" data-toggle="tab">同じテーマの出題状況(<%= @themequestions.count %>)</a>
         </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active", id="kanren">
-            <% if @questions.first.comments.any? %>
+            <% if @question.comments.any? %>
                 <ul>
-                    <% @questions.first.comments.each do |c| %>
+                    <% @question.comments.each do |c| %>
                         <% if c.id %>
                             <li id="comment_<%= c.id %>">
                             <%= c.body %> by <%= c.commenter %>
                             <%= link_to content_tag('i', '', class: 'icon-trash'),
-                                "/q/#{@questions.first.subject}/#{@questions.first.year}/#{@questions.first.number}/c/#{c.id}",
+                                "/q/#{@question.subject}/#{@question.year}/#{@question.number}/c/#{c.id}",
                             confirm: "削除してもよろしいですか？", method: :delete, remote: true %>
                             </li>
                         <% end %>
@@ -50,7 +66,7 @@
                 <p>関連情報はありません。</p>
             <% end %>
 
-            <%= form_for( @questions.first.comments, url: "/q/#{@questions.first.subject}/#{@questions.first.year}/#{@questions.first.number}/c", method: 'POST') do |f| %>
+            <%= form_for( @question.comments, url: "/q/#{@question.subject}/#{@question.year}/#{@question.number}/c", method: 'POST') do |f| %>
                 <% if @comment.errors.any? %>
                     <ul>
                         <% @comment.errors.full_messages.each do |msg| %>

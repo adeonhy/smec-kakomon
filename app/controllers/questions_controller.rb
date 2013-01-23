@@ -28,11 +28,11 @@ class QuestionsController < ApplicationController
     @kamoku = Kamoku[@subject]
     @year = params[:year]
     @qnum = params[:number]
-    @questions = Question.where(subject: @subject, year: @year, number: @qnum).all
-    @theme = Theme.where(themecode: @questions.first.themecode).first
-    @themequestions = Question.where(themecode: @questions.first.themecode).all
+    @question = Question.where(subject: @subject, year: @year, number: @qnum).first
+    @theme = Theme.where(themecode: @question.themecode).first
+    @themequestions = Question.where(themecode: @question.themecode).all
     
-    @comment = @questions.first.comments.build
+    @comment = @question.comments.build
   end
 
   def answer

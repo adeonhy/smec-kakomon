@@ -37,14 +37,13 @@
             <tr>
                 <td><h4><%=st[:kamoku] %></h4>
                     <% st[:themes].each do |mt| %>
-                        <span class="tags"
-                        <i class="icon-tag"></i><%= link_to mt.maintheme, "/theme/#{mt.themecode[0..2]}" %>
-                        <!--
-                        <span class="badge badge-success" style="margin-right:10px">
-                            <%= @mainthemescount[mt.themecode[0..2]] %>
-                        </span>
-                        -->
-                        (<%= @mainthemescount[mt.themecode[0..2]] %>)
+                        <% if request.smart_phone? %>
+                            <span class="tags" style="display: block">
+                        <% else %>
+                            <span class="tags">
+                        <% end %>
+                        <%= link_to mt.maintheme, "/theme/#{mt.mainthemecode}" %>
+                        <span style="font-weight:bold;color:orangered"><%= @mainthemescount[mt.mainthemecode] %></span>
                         </span>
                     <% end %>
                 </td>
