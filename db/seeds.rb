@@ -18,27 +18,10 @@ end
 
 def csv2question(csv)
   CSV.foreach(csv,headers: true) do |row|
-    Question.create(
-      subject: row[0],
-      year: row[1],
-      number: row[2],
-      subquestion:row[3],
-      themecode:row[4],
-      selectioncount:row[5],
-      answer:row[6],
-      svg:row[7],
-      pdf:row[8],
-      png:row[9]
-    ) if true
-    puts("
-    number: #{row[0]},
-                  subquestion:#{row[1]},
-                  themecode:#{row[2]},
-                  selectioncount:#{row[3]},
-                  answer:#{row[4]},
-                  svg:#{row[5]},
-                 pdf:#{row[6]},
-                  png:#{row[7]}") if false
+    Question.create( subject: row[0], year: row[1], number: row[2],
+                    subquestion:row[3], themecode:row[4], selectioncount:row[5],
+                    answer:row[6], svg:row[7], pdf:row[8], png:row[9]
+                   ) 
   end
 end
 
@@ -57,4 +40,5 @@ csv2question('db/c1ji2012.csv')
 csv2theme('db/theme_keizai.csv')
 csv2theme('db/theme_zaimu.csv')
 csv2theme('db/theme_keiei.csv')
+csv2theme('db/theme_unei.csv')
 
