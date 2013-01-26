@@ -50,7 +50,7 @@ namespace :dbmainte do
       CSV.foreach(csv,headers: true) do |row|
         available = (row[2] =~ /true/i ? true : false)
         Setofsubyear.where(
-          subject: row[0], year:row[1].to_i, available: available
+          subject: row[0], year:row[1], available: available
         ).first_or_create
       end
     end
