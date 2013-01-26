@@ -59,6 +59,7 @@ namespace :dbmainte do
           s.available = available
           s.save
         end
+      end
     end
 
     csv2setofsubyear('db/setofsubyear.csv')
