@@ -49,10 +49,16 @@ namespace :dbmainte do
     def csv2setofsubyear(csv)
       CSV.foreach(csv,headers: true) do |row|
         available = (row[2] =~ /true/i ? true : false)
-        Setofsubyear.where(
+        s = Setofsubyear.where(
           subject: row[0], year:row[1], available: available
-        ).first_or_create
-      end
+        ).first
+        if s.available == available
+          puts "#{s.subject} - #{s.year} status not changed."
+        else
+          puts "#{s.subject} - #{s.year} status change available."
+          s.available = available
+          s.save
+        end
     end
 
     csv2setofsubyear('db/setofsubyear.csv')
