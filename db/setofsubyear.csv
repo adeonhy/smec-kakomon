@@ -19,9 +19,9 @@ subject,year,available
 運営管理,2010,FALSE
 運営管理,2009,FALSE
 運営管理,2008,FALSE
-経営法務,2012,FALSE
-経営法務,2011,FALSE
-経営法務,2010,FALSE
+経営法務,2012,TRUE
+経営法務,2011,TRUE
+経営法務,2010,TRUE
 経営法務,2009,FALSE
 経営法務,2008,FALSE
 経営情報システム,2012,FALSE
