@@ -1,4 +1,14 @@
-<p><%= image_tag "/assets/svg/#{@question.svg}" %></p>
+<p>
+<% 
+   if android?
+     file = "/assets/svg/#{@question.png}"
+   else
+     file = "/assets/svg/#{@question.svg}"
+   end
+%>
+<%= image_tag file %>
+</p>
+
 <%  (1..@question.subquestion).each do |i| %>
     <% rnd = SecureRandom.hex(4) %>
     <% if not @question.subquestion == 1 %>
