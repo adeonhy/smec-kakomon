@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123155409) do
+ActiveRecord::Schema.define(:version => 20130127124111) do
 
   create_table "answer_logs", :force => true do |t|
     t.integer  "question_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20130123155409) do
     t.integer  "question_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   add_index "comments", ["question_id"], :name => "index_comments_on_question_id"

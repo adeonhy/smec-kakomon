@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :config, :name, :provider, :set, :uid
   has_many :answer_logs
+  has_many :comments
 
   def self.create_with_omniauth(auth)
     create! do |user|

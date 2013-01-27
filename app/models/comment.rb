@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   belongs_to :question
-  attr_accessible :body, :commenter
+  belongs_to :user
+  attr_accessible :body, :commenter, :question_id, :user_id
 
-  validates :commenter, presence: true
   validates :body, presence: true, 
             length: { minimum: 5, maximum: 140}
 

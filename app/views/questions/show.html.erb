@@ -54,10 +54,14 @@
                     <% @question.comments.each do |c| %>
                         <% if c.id %>
                             <li id="comment_<%= c.id %>">
-                            <%= c.body %> by <%= c.commenter %>
-                            <%= link_to content_tag('i', '', class: 'icon-trash'),
-                                "/q/#{@question.subject}/#{@question.year}/#{@question.number}/c/#{c.id}",
-                            confirm: "削除してもよろしいですか？", method: :delete, remote: true %>
+                            <% c.body.each_line do |l| %>
+                                <p><%= auto_link(l, html: {target: '_blank'}) %></p>
+                            <% end %> by <%= c.commenter %>
+                            <% if current_user && (current_user.id == c.user_id) %>
+                                <%= link_to content_tag('i', '', class: 'icon-trash'),
+                                    "/q/#{@question.subject}/#{@question.year}/#{@question.number}/c/#{c.id}",
+                                confirm: "削除してもよろしいですか？", method: :delete, remote: true %>
+                            <% end %>
                             </li>
                         <% end %>
                     <% end %>
@@ -66,25 +70,50 @@
                 <p>関連情報はありません。</p>
             <% end %>
 
-            <%= form_for( @question.comments, url: "/q/#{@question.subject}/#{@question.year}/#{@question.number}/c", method: 'POST') do |f| %>
-                <% if @comment.errors.any? %>
-                    <ul>
-                        <% @comment.errors.full_messages.each do |msg| %>
-                            <li><%= msg %></li>
-                        <% end %>
-                    </ul>
+            <% if current_user %>
+                <%= form_for( 
+                             @question.comments, url: "/q/#{@question.subject}/#{@question.year}/#{@question.number}/c",
+                             method: 'POST',
+                                 html: {class:'form-horizontal'}
+                            ) do |f| %>
+                    <% if @comment.errors.any? %>
+                        <ul>
+                            <% @comment.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                            <% end %>
+                        </ul>
+                    <% end %>
+                    <%= f.hidden_field :user_id, value: current_user.id %>
+                    <div class="control-group">
+                        <div class="field">
+                            <%= f.label :commenter, "名前", class: "control-label" %>
+                            <div class="controls">
+                                <%= f.text_field :commenter, value: current_user.name %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="field">
+                            <%= f.label :body, "コメント", class: "control-label"  %>
+                            <div class="controls">
+                                <%= f.text_area :body, rows: 5 %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="actions">
+                                <%= f.submit "送信"%>
+                            </div>
+                        </div>
+                    </div>
                 <% end %>
-                <div class="field">
-                    <%= f.label :commenter %>
-                    <%= f.text_field :commenter %>
+            <% else %>
+                <div class="alert alert-info">
+                    <button class="close" data-dismiss="alert">&times;</button>
+                    コメントを残すには、<%= link_to "ログイン", login_path_by_google %>してください。
                 </div>
-                <div class="field">
-                    <%= f.label :body %>
-                    <%= f.text_area :body, rows: 5 %>
-                </div>
-                <div class="actions">
-                    <%= f.submit %>
-                </div>
+
             <% end %>
         </div>
         <div class="tab-pane", id="theme">

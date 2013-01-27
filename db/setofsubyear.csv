@@ -14,9 +14,9 @@ subject,year,available
 企業経営理論,2010,FALSE
 企業経営理論,2009,FALSE
 企業経営理論,2008,FALSE
-運営管理,2012,FALSE
-運営管理,2011,FALSE
-運営管理,2010,FALSE
+運営管理,2012,TRUE
+運営管理,2011,TRUE
+運営管理,2010,TRUE
 運営管理,2009,FALSE
 運営管理,2008,FALSE
 経営法務,2012,TRUE
