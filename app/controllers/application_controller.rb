@@ -1,7 +1,10 @@
+# coding: utf-8
+
 class ApplicationController < ActionController::Base
   include Jpmobile::ViewSelector
   protect_from_forgery
   helper_method :current_user, :user_agent, :android?
+  helper_method :abb, :abbifsmapho
 
   private
   def current_user
@@ -18,5 +21,32 @@ class ApplicationController < ActionController::Base
 
   def android?
     user_agent =~ /Android/
+  end
+
+  def abb(str) #スマホ用短縮表記
+    ret = str
+    table = [
+      ['経済学・経済政策', '経済'],
+      ['財務・会計', '財務'],
+      ['企業経営理論', '経営'],
+      ['運営管理', '運営'],
+      ['経営法務', '法務'],
+      ['経営情報システム', '情報'],
+      ['中小企業経営・政策', '中小'],
+    ]
+    
+    table.each do |k|
+      ret = (ret == k[0] ? k[1] : ret)
+    end
+
+    # 括弧以降を削除
+    matchindex = (ret =~ /[\(（]/ )
+    if matchindex
+      ret = ret[0...matchindex]
+    end
+  end
+
+  def abbifsmapho(str)
+    request.smart_phone? ? abb(str) : str
   end
 end

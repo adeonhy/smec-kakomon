@@ -9,7 +9,10 @@
     </thead>
     <tbody>
         <% @theme_by_subject.each do |st| %>
-            <tr> <td><%= st[:kamoku] %></td>
+            <tr> <td>
+                    <%= abbifsmapho st[:kamoku] %>
+                </td>
+
                 <% %w(2012 2011 2010 2009 2008).each do |y| %>
                  <td><% @setofsubyears.select {|i|(i.subject == st[:kamoku]) && (i.year == y)}.each do |set| %>
                          <% if set.available %>
