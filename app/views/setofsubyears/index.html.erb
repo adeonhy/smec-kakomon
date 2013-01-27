@@ -11,6 +11,7 @@
         <% @theme_by_subject.each do |st| %>
             <tr> <td>
                     <%= abbifsmapho st[:kamoku] %>
+                    <%# <%= abbifsmapho(st[:kamoku]).inspect%> 
                 </td>
 
                 <% %w(2012 2011 2010 2009 2008).each do |y| %>

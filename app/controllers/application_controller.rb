@@ -45,6 +45,7 @@ class ApplicationController < ActionController::Base
     if matchindex
       ret = ret[0...matchindex]
     end
+    ret
   end
 
   def abbifsmapho(str)
