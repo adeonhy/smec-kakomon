@@ -27,26 +27,54 @@
 
 <h2>テーマから選ぶ</h2>
 
-<table class="table table-striped">
-    <thead>
-    </thead>
-    <tbody>
+<% if request.smart_phone? %> 
+    <div class="accordion" id="accordion2">
         <% @theme_by_subject.each do |st| %>
-            <tr>
-                <td><h4><%=st[:kamoku] %></h4>
-                    <% st[:themes].each do |mt| %>
-                        <% if request.smart_phone? %>
-                            <span class="tags" style="display: block">
-                        <% else %>
-                            <span class="tags">
-                        <% end %>
-                        <%= link_to mt.maintheme, "/theme/#{mt.mainthemecode}" %>
-                        <span style="font-weight:bold;color:orangered"><%= @mainthemescount[mt.mainthemecode] %></span>
-                        </span>
-                    <% end %>
-                </td>
-            </tr>
+            <div class="accordion-group"> <!-- 科目 -->
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse<%= st[:code] %>">
+                        <%= st[:kamoku] %>
+                    </a>
+                </div>
+                <div id="collapse<%= st[:code] %>" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <% st[:themes].each do |mt| %>
+                                            <span class="tags" style="display: block">
+                                                <%= link_to mt.maintheme, "/theme/#{mt.mainthemecode}" %>
+                                                <span style="font-weight:bold;color:orangered"><%= @mainthemescount[mt.mainthemecode] %></span>
+                                            </span>
+                                        <% end %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         <% end %>
-    </tbody>
-</table>
+    </div>
+<% else %>
+    <table class="table table-striped">
+        <thead>
+        </thead>
+        <tbody>
+            <% @theme_by_subject.each do |st| %>
+                <tr>
+                    <td><h4><%=st[:kamoku] %></h4>
+                        <% st[:themes].each do |mt| %>
+                            <span class="tags">
+                                <%= link_to mt.maintheme, "/theme/#{mt.mainthemecode}" %>
+                                <span style="font-weight:bold;color:orangered"><%= @mainthemescount[mt.mainthemecode] %></span>
+                            </span>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
 
