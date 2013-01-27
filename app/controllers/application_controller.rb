@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user, :user_agent, :android?
   helper_method :abb, :abbifsmapho
+  helper_method :login_path_by_google
 
   private
   def current_user
@@ -48,5 +49,9 @@ class ApplicationController < ActionController::Base
 
   def abbifsmapho(str)
     request.smart_phone? ? abb(str) : str
+  end
+
+  def login_path_by_google
+    "/auth/open_id?openid_url=https://www.google.com/accounts/o8/id"
   end
 end

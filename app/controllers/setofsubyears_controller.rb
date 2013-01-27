@@ -24,5 +24,6 @@ class SetofsubyearsController < ApplicationController
       {code: 'f', subject: 'joho',  kamoku: "経営情報システム",themes: Theme.where('themecode like ?', '6__001').all},
       {code: 'g', subject: 'chusho',kamoku: "中小企業経営・政策",themes: Theme.where('themecode like ?', '7__001').all},
     ]
+
   end
 end
