@@ -7,7 +7,14 @@
         <% set_meta_tags :site => '中小企業診断士の過去問',
             :description => '中小企業診断士の過去問を年度別、テーマ別で選択できます。',
             :keywords => "中小企業診断士, 過去問, テーマ別",
-            :reverse => true
+            :reverse => true,
+            :open_graph => {
+                :site_name => '中小企業診断士の過去問',
+                :description => '中小企業診断士の過去問を年度別、テーマ別で選択できます。',
+                :url => 'http://smec-kakomon.jp/',
+                :type => 'study',
+                :image => 'http://smec-kakomon.jp/assets/logo2.png'
+            }
         %>
         <%= display_meta_tags %>
                             
@@ -53,7 +60,7 @@
                         <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="/" style="color: #fefefe">
-                        <img src="assets/banner_white.png" style="height: 20px" alt="smec-kakomon">
+                        <img src="/assets/banner_white.png" style="height: 20px" alt="smec-kakomon">
                     </a>
                     <div class="nav-collapse">
                         <ul class="nav">
@@ -75,7 +82,7 @@
             <% if request.smart_phone? %>
             <% else %>
                 <div class="hero-unit">
-                    <img src="assets/logo2.png" style="height:150px;float:left; padding-right:30px"  alt="logo">
+                    <img src="/assets/logo2.png" style="height:150px;float:left; padding-right:30px"  alt="logo">
                     <h3>中小企業診断士の過去問</h3>
                     <p>効率的な１次対策のために</p>
                     <p>ロゴができました。</p>
