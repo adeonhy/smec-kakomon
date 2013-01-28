@@ -1,6 +1,20 @@
-<% set_meta_tags :title => "#{@year}年度#{@kamoku} 第#{@question.number}問",
-    :description => "#{@theme.maintheme} #{@theme.subtheme}", :keywords => ['過去問', '診断士', @kamoku] 
+<% content_for :meta_tag do
+    set_meta_tags :site => '中小企業診断士の過去問',
+        :description => "#{@theme.maintheme} #{@theme.subtheme}",
+        :keywords => ['過去問', '診断士', 'テーマ別', @kamoku],
+        :title => "#{@year}年度#{@kamoku} 第#{@question.number}問",
+        :reverse => true,
+        :open_graph => {
+        :site_name => '中小企業診断士の過去問',
+        :title => "#{@year}年度#{@kamoku} 第#{@question.number}問",
+        :description => "#{@theme.maintheme} #{@theme.subtheme}",
+        :url => 'http://smec-kakomon.jp/',
+        :type => 'website',
+        :image => 'http://smec-kakomon.jp/assets/logo2.png'
+    }
 %>
+<%= display_meta_tags %>
+<% end %>
 
 <ul class="breadcrumb">
     <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>

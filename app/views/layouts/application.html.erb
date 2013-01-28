@@ -10,13 +10,14 @@
             :reverse => true,
             :open_graph => {
                 :site_name => '中小企業診断士の過去問',
+                :title => 'トップページ',
                 :description => '中小企業診断士の過去問を年度別、テーマ別で選択できます。',
                 :url => 'http://smec-kakomon.jp/',
                 :type => 'website',
                 :image => 'http://smec-kakomon.jp/assets/logo2.png'
             }
         %>
-        <%= display_meta_tags %>
+        <%= content_for?(:meta_tag) ? (content_for :meta_tag) : display_meta_tags %>
                             
         <%= csrf_meta_tags %>
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
