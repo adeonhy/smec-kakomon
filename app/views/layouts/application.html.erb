@@ -4,7 +4,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><%= content_for?(:title) ? yield(:title) : "中小企業診断士 過去問" %></title>
+        <% set_meta_tags :site => '中小企業診断士の過去問',
+            :description => '中小企業診断士の過去問を年度別、テーマ別で選択できます。',
+            :keywords => "中小企業診断士, 過去問, テーマ別",
+            :reverse => true
+        %>
+        <%= display_meta_tags %>
+                            
         <%= csrf_meta_tags %>
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 
