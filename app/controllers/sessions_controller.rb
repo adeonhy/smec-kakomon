@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
   def mypage
     if uid = session[:user_id]
       @user = User.find(uid)
-      @user.answer_logs.build
+      @logs = @user.answer_logs
     else
       @user = nil
     end
