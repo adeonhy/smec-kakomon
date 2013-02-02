@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <% set_meta_tags :site => '中小企業診断士の過去問',
             :description => '中小企業診断士の過去問を年度別、テーマ別で選択できます。',
-            :keywords => "中小企業診断士, 過去問, テーマ別",
+            :keywords => "中小企業診断士, 過去問, テーマ別, 独学, 勉強法",
             :reverse => true,
             :open_graph => {
                 :site_name => '中小企業診断士の過去問',
@@ -20,7 +20,7 @@
         <%= content_for?(:meta_tag) ? (content_for :meta_tag) : display_meta_tags %>
                             
         <%= csrf_meta_tags %>
-        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <%= javascript_include_tag "application" %>
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
         <!--[if lt IE 9]>
@@ -66,12 +66,32 @@
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li><%= link_to content_tag("i", 'マイページ', {class: "icon-home icon-white"}), mypage_path %></li>
-                        <% if current_user %>
-                            <li class="active"><a href="#">Login as: <%= current_user.name %></a></li>
-                            <li><%= link_to "ログアウト", logout_path %></li>
-                        <% else %>
-                            <li><%= link_to "ログイン", login_path_by_google %></li>
-                        <% end %>
+                        </ul>
+
+                        <ul class="nav pull-right">
+                            <% if current_user %>
+                                <li class="dropdown active">  
+                                <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" href="#">Login as: <%= current_user.name %><b class="caret"></b></a>  
+                                <ul class="dropdown-menu">  
+                                    <li><%= link_to "ログアウト", logout_path %></li>
+                                    <li><p>設定（準備中）</p></li>
+                                </ul>  
+                                </li> 
+                            <% else %>
+                                <li class="dropdown active">  
+                                <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" href="#">ログイン<b class="caret"></b></a>  
+                                <ul class="dropdown-menu">  
+                                    <li><%= link_to "Googleでログイン", login_path_by_google %></li>
+                                    <li><%= link_to "twitterでログイン", login_path_by_twitter %></li>
+                                    <li><%= link_to "facebookでログイン", login_path_by_facebook %></li>
+                                    <!--
+                                    <li><%= image_tag "google.png",{style:"display:inline;width:16px"} %><%= link_to "Googleでログイン", login_path_by_google %></li>
+                                    <li><%= image_tag "twitter.png" %><%= link_to "twitterでログイン", login_path_by_twitter %></li>
+                                    <li><%= image_tag "facebook.png" %><%= link_to "facebookでログイン", login_path_by_facebook %></li>
+                                    -->
+                                </ul>  
+                                </li> 
+                            <% end %>
                         </ul>
                     </div>
                 </div>
@@ -142,7 +162,6 @@
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application" %>
 
 </body>
 </html>

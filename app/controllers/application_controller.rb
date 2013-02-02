@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_agent, :android?
   helper_method :abb, :abbifsmapho
   helper_method :login_path_by_google
+  helper_method :login_path_by_twitter
+  helper_method :login_path_by_facebook
 
   private
   def current_user
@@ -55,4 +57,13 @@ class ApplicationController < ActionController::Base
   def login_path_by_google
     "/auth/open_id?openid_url=https://www.google.com/accounts/o8/id"
   end
+
+  def login_path_by_twitter
+    "/auth/twitter"
+  end
+
+  def login_path_by_facebook
+    "/auth/facebook"
+  end
+
 end
