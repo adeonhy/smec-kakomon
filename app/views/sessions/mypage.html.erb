@@ -11,7 +11,7 @@
     </div>
 <% else %>
 <h4>学習状況</h4>
-<div id="chart_div" style="width:100%;height:200px">
+<div id="chart_div" style="width:100%;height:300px">
     <p>現在Androidには対応していませんm(__)m</p>
 </div>
 <h4>解答の履歴</h4>
@@ -100,18 +100,28 @@ function drawChart() {
     // Create the data table.
     var data = new google.visualization.DataTable();
     data.addColumn('string', '日付');
-    data.addColumn('number', '問題数');
+    data.addColumn('number', '経済');
+    data.addColumn('number', '財務');
+    data.addColumn('number', '経営');
+    data.addColumn('number', '運営');
+    data.addColumn('number', '法務');
+    data.addColumn('number', '情報');
+    data.addColumn('number', '中小');
     data.addRows([
             <% current_user.study_log.each do |day| %>
-                <%= raw "['" << day[0][5..10] << "'," << day[1].to_s << '],' %>
+                <%= raw "['" << day[0][5..10] << "'," << day[1..7].join(',') << '],' %>
             <% end %>
             <%# ['Mushrooms', 3], %>
             ]);
 
     // Set chart options
-    var options = {'title':'解いた問題数'};
-    //    'width':500,
-    //    'height':300};
+    var options = {
+        'title':'解いた問題数',
+        'chartArea':{left:20, top:10},
+        'isStacked':true,
+
+        
+    };
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
