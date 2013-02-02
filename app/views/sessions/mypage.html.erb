@@ -12,6 +12,7 @@
 <% else %>
 <h4>学習状況</h4>
 <div id="chart_div" style="width:100%;height:200px">
+    <p>現在Androidには対応していませんm(__)m</p>
 </div>
 <h4>解答の履歴</h4>
 <table class="table table-striped table-hover table-bordered">
@@ -102,7 +103,7 @@ function drawChart() {
     data.addColumn('number', '問題数');
     data.addRows([
             <% current_user.study_log.each do |day| %>
-                <%= raw "['" << day[0] << "'," << day[1].to_s << '],' %>
+                <%= raw "['" << day[0][5..10] << "'," << day[1].to_s << '],' %>
             <% end %>
             <%# ['Mushrooms', 3], %>
             ]);
