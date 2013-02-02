@@ -34,4 +34,27 @@ class User < ActiveRecord::Base
     end
     log
   end
+
+  def self.all_study_log(from_date = nil, to_date = nil)
+    timeformat = "%Y-%m-%d"
+    subtable = %w(a b c d e f g)
+    log = []
+    t = Date.today
+    from_date ||= t - 1.month
+    to_date   ||= t
+    (from_date..to_date).each do |day| # each day
+      daystr = day.strftime("%Y-%m-%d")
+      daycount = AnswerLog.all.group_by{|l|l.created_at.strftime timeformat}[daystr]
+      subcount = [0,0,0,0,0,0,0]
+      if daycount
+        subgroup = daycount.group_by{|l| Question.find(l.question_id).subject}
+        (0..6).each do |subject|
+          subcount[subject] = subgroup[subtable[subject]].count if subgroup[subtable[subject]]
+        end
+      end
+      log << [daystr] + subcount
+    end
+    log
+  end
+
 end

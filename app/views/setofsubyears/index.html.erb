@@ -2,6 +2,13 @@
     <li class="active">Home</li>
 </ul>
 
+<% if not android? %>
+<h2>みんなの学習状況</h2>
+<div id="chart_div" style="width:100%;height:300px">
+    <p>現在Androidには対応していませんm(__)m</p>
+</div>
+<% end %>
+
 <h2>年度から選ぶ</h2>
 <table class="table table-striped">
     <thead>
@@ -82,3 +89,48 @@
     </table>
 <% end %>
 
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+    // Load the Visualization API and the piechart package.
+google.load('visualization', '1.0', {'packages':['corechart']});
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.setOnLoadCallback(drawChart);
+
+// Callback that creates and populates a data table,
+// instantiates the pie chart, passes in the data and
+// draws it.
+function drawChart() {
+
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', '日付');
+    data.addColumn('number', '経済');
+    data.addColumn('number', '財務');
+    data.addColumn('number', '経営');
+    data.addColumn('number', '運営');
+    data.addColumn('number', '法務');
+    data.addColumn('number', '情報');
+    data.addColumn('number', '中小');
+    data.addRows([
+            <% @all_study_log.each do |day| %>
+                <%= raw "['" << day[0][5..10] << "'," << day[1..7].join(',') << '],' %>
+            <% end %>
+            <%# ['Mushrooms', 3], %>
+            ]);
+
+    // Set chart options
+    var options = {
+        'title':'解いた問題数',
+        'chartArea':{left:20, top:20},
+        'isStacked':true,
+
+        
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+}
+</script>

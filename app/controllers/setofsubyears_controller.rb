@@ -25,5 +25,7 @@ class SetofsubyearsController < ApplicationController
       {code: 'g', subject: 'chusho',kamoku: "中小企業経営・政策",themes: Theme.where('themecode like ?', '7__001').all},
     ]
 
+    @all_study_log = User.all_study_log
+
   end
 end
