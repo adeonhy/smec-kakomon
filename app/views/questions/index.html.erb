@@ -8,24 +8,41 @@
 <table class="table table-striped table-hover">
     <thead>
         <tr>
+            <% if current_user %>
+                <th>履歴</th>
+            <% end %>
             <th>問数</th>
             <th>テーマ</th>
             <th>サブテーマ</th>
-            <th>難易度</th>
         </tr>
     </thead>
     <tbody>
         <% @questions.each do |q| %>
-            <tr style="cursor: pointer" data-href=<%= "/q/#{@subject}/#{q.year}/#{q.number}" %>> 
+                <% if current_user %>
+                    <% table_class = q.last3status(current_user) %>
+                    <tr style="cursor: pointer" class="<%= table_class %>" data-href=<%= "/q/#{@subject}/#{q.year}/#{q.number}" %>> 
+                    <td>
+                        <span style="white-space: nowrap">
+                            <% q.history(current_user).each do |h| %>
+                                <% if h.correct %>
+                                    <span class="right">◯</span>
+                                <% else %>
+                                    <span class="wrong">×</span>
+                                <% end %>
+                            <% end %>
+                        </span>
+                    </td>
+                <% else %>
+                    <tr style="cursor: pointer" data-href=<%= "/q/#{@subject}/#{q.year}/#{q.number}" %>> 
+                <% end %>
                 <td style="white-space: nowrap">
                     <%= link_to "第#{q.number}問","/q/#{@subject}/#{q.year}/#{q.number}" %>
                 </td>
-                <td><%= q.maintheme %></td>
-                <td><%= q.subtheme %></td>
-                <td>-</td>
+                <td><%= abbifsmapho q.maintheme %></td>
+                <td><%= abbifsmapho q.subtheme %></td>
             </tr>
         </a>
-        <% end %>
+    <% end %>
     </tbody>
 </table>
 

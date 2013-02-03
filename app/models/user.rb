@@ -57,4 +57,26 @@ class User < ActiveRecord::Base
     log
   end
 
+  def review_list # 復習リスト
+    timing = {
+      1 => 1.days.ago,
+      2 => 1.weeks.ago,
+      3 => 2.weeks.ago,
+      4 => 1.month.ago,
+    }
+    
+    list = self.answer_logs.inject([]) do |acc,l|
+      t = timing[l.times]
+      if l.correct
+        acc
+      elsif t && l.created_at < t
+        acc + [l]
+      else
+        acc
+      end
+    end
+
+    list.reverse
+  end
+
 end

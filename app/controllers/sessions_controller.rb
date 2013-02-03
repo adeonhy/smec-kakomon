@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   def mypage
     if uid = session[:user_id]
       @user = User.find(uid)
-      @logs = @user.answer_logs
+      @logs = @user.answer_logs.limit(100)
     else
       @user = nil
     end

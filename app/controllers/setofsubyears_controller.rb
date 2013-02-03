@@ -27,5 +27,9 @@ class SetofsubyearsController < ApplicationController
 
     @all_study_log = User.all_study_log
 
+    if current_user 
+      review = current_user.review_list
+      flash[:notice] = "復習のススメが #{review.length} 問あります！" unless review.empty?
+    end
   end
 end

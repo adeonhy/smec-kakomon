@@ -44,4 +44,36 @@ class Question < ActiveRecord::Base
     Question.where(subject: self.subject, year: self.year, number: (self.number)-1).first
   end
 
+  def history(user)
+    if user
+      user.answer_logs.where(question_id: self.id).limit(3)
+    else
+      []
+    end
+  end
+
+  def last3count(user)
+    # hist =  user.answer_logs.where(question_id: self.id).limit(3).group(:correct).size
+    # hist[true] ||= 0
+    # hist[false] ||= 0
+    # hist
+     history(user).map{|h|h.correct}.inject(Hash.new(0)){|acc,item|acc[item]+=1;acc}
+  end
+
+  def last3status(user) #info(lightblue), success(green), error(red)
+    t = last3count(user)[true]
+    f = last3count(user)[false]
+    
+    if (t==0) && (f==0)
+      ""
+    elsif ((t==2) && (f==0)) || t==3 
+      "info"
+    elsif t > f
+      "success"
+    else
+      "error"
+    end 
+  end
+
+
 end

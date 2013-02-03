@@ -8,4 +8,5 @@ class AnswerLog < ActiveRecord::Base
     AnswerLog.group(:question_id, :user_id).size[[self.question_id, self.user_id]]
   end
 
+
 end
