@@ -1,6 +1,6 @@
-class Workbook
-  include Mongoid::Document
+# class Workbook
+  # include Mongoid::Document
   
-  field :questions, type: Array, defalut: []
+  # field :questions, type: Array, defalut: []
 
-end
+# end
