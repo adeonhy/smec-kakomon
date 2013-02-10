@@ -11,6 +11,9 @@ gem 'omniauth-openid'
 gem 'rails_autolink', '~> 1.0.9'
 gem 'meta-tags', :require => 'meta_tags'
 
+gem 'mongoid'
+gem 'bson_ext'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

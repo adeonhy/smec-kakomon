@@ -1,0 +1,33 @@
+development:
+  # Configure available database sessions. (required)
+  sessions:
+    # # Defines the default session. (required)
+    default:
+      uri: mongodb://kakomon:piyopiyo@ds043467.mongolab.com:43467/smec-kakomon
+      # # Defines the name of the default database that Mongoid can connect to.
+      # # (required).
+      # database: smec_kakomon_development
+      # # Provides the hosts the default session can connect to. Must be an array
+      # # of host:port pairs. (required)
+      # hosts:
+        # - localhost:27017
+      # options:
+  # # Configure Mongoid specific options. (optional)
+  # options:
+test:
+  sessions:
+    default:
+      database: smec_kakomon_test
+      hosts:
+        - localhost:27017
+      options:
+        consistency: :strong
+        # In the test environment we lower the retries and retry interval to
+        # low amounts for fast failures.
+        max_retries: 1
+        retry_interval: 0
+
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOLAB_URI'] %>

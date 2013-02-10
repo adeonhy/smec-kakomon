@@ -1,7 +1,7 @@
 subject,year,available
 経済学・経済政策,2012,TRUE
-経済学・経済政策,2011,FALSE
-経済学・経済政策,2010,FALSE
+経済学・経済政策,2011,TRUE
+経済学・経済政策,2010,TRUE
 経済学・経済政策,2009,FALSE
 経済学・経済政策,2008,FALSE
 財務・会計,2012,TRUE
@@ -10,8 +10,8 @@ subject,year,available
 財務・会計,2009,FALSE
 財務・会計,2008,FALSE
 企業経営理論,2012,TRUE
-企業経営理論,2011,FALSE
-企業経営理論,2010,FALSE
+企業経営理論,2011,TRUE
+企業経営理論,2010,TRUE
 企業経営理論,2009,FALSE
 企業経営理論,2008,FALSE
 運営管理,2012,TRUE
