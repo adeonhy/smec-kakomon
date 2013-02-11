@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   helper_method :login_path_by_google
   helper_method :login_path_by_twitter
   helper_method :login_path_by_facebook
+  helper_method :question_path
 
   private
   def current_user
@@ -64,6 +65,10 @@ class ApplicationController < ActionController::Base
 
   def login_path_by_facebook
     "/auth/facebook"
+  end
+
+  def question_path(q)
+    "/q/#{q.subject}/#{q.year}/#{q.number}"
   end
 
 end

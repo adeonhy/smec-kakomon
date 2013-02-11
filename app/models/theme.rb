@@ -12,4 +12,8 @@ class Theme < ActiveRecord::Base
   def kamoku
     Question.to_kamoku(self.subject)
   end
+
+  def questions
+    Question.where(themecode: self.themecode)
+  end
 end

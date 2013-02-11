@@ -70,6 +70,22 @@
                 <ul>
                     <% @question.comments.each do |c| %>
                         <% if c.id %>
+                            <div class="commentBox" id="comment_<%= c.id %>">
+                                <div class="commentBoxinner">
+                                    <p>
+                                    <% c.body.each_line do |l| %>
+                                        <%= auto_link(l, html: {target: '_blank'}) %><br>
+                                    <% end %>
+                                    </p> by <%= c.commenter %>
+                                    <% if current_user && (current_user.id == c.user_id) %>
+                                        <%= link_to content_tag('i', '', class: 'icon-trash'),
+                                            "#{question_path @question}/c/#{c.id}",
+                                        confirm: "削除してもよろしいですか？", method: :delete, remote: true %>
+                                    <% end %>
+                                </div>
+                            </div>
+                            
+                            <!--
                             <li id="comment_<%= c.id %>">
                             <% c.body.each_line do |l| %>
                                 <p><%= auto_link(l, html: {target: '_blank'}) %></p>
@@ -80,6 +96,7 @@
                                 confirm: "削除してもよろしいですか？", method: :delete, remote: true %>
                             <% end %>
                             </li>
+                            -->
                         <% end %>
                     <% end %>
                 </ul>

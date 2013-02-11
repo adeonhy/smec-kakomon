@@ -6,30 +6,62 @@
     <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
     <li class="active"><%= "#{@kamoku} #{@maintheme}" %></li>
 </ul>
-<table class="table table-bordered">
-    <thead>
-        <tr><th>サブテーマ</th><th>2012年</th><th>2011年</th><th>2010年</th><th>2009年</th><th>2008年</th></tr>
-    </thead>
-    <tbody>
-        <% @subthemes.each do |s| %>
+<% @subthemes.each do |s| %>
+    <h4><%= abbifsmapho s.subtheme %>(<%= s.questions.count %>)</h4>
+    <table class="table table-striped table-hover">
+        <thead>
             <tr>
-                <td>
-                    <%= link_to s.subtheme, "/theme/#{s.themecode}" %>
-                    <span class="badge badge-success"><%= @subthemescount[s.themecode] %></span>
-                </td>
-                <% [2012, 2011, 2010, 2009, 2008].each do |year| %>
-                    <td>
-                        <% yearqestions = @themequestions.select { |x| %>
-                            <% (x.year==year) && (x.themecode == s.themecode)}.each do |q| %>
-                                <p><%= link_to "第#{q.number}問", "/q/#{q.subject}/#{q.year}/#{q.number}" %></p>
-                            <% end %>
-                            <%= "-" if yearqestions.empty? %>
-                    </td>
+                <% if current_user %>
+                    <th>履歴</th>
                 <% end %>
+                <th>年度</th>
+                <th>問数</th>
             </tr>
-        <% end %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% s.questions.each do |q| %>
+            <% if current_user %>
+                <% table_class = q.last3status(current_user) %>
+                <tr style="cursor: pointer" class="<%= table_class %>" data-href=<%= question_path q %>> 
+                    <td>
+                        <span style="white-space: nowrap">
+                            <% q.history(current_user).each do |h| %>
+                                <% if h.correct %>
+                                    <span class="right">◯</span>
+                                <% else %>
+                                    <span class="wrong">×</span>
+                                <% end %>
+                            <% end %>
+                        </span>
+                    </td>
+                <% else %>
+                    <tr style="cursor: pointer" data-href=<%= question_path q %>> 
+                    <% end %>
+                    <td>
+                        <%= q.year %>年
+                    </td>
+                    <td>
+                        第<%= q.number %>問
+                    </td>
+                    </tr>
+                <% end %>
+        </tbody>
+    </table>
+<% end %>
+
+<script>
+    jQuery( function($) {
+        $('tbody tr[data-href]').addClass('clickable').click( function() {
+            window.location = $(this).attr('data-href');
+            }).find('a').hover( function() {
+            $(this).parents('tr').unbind('click');
+            }, function() {
+            $(this).parents('tr').click( function() {
+                window.location = $(this).attr('data-href');
+            });
+        });
+    });
+</script>
 <% else %>
 <ul class="breadcrumb">
     <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
