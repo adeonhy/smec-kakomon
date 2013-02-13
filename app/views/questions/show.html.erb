@@ -5,13 +5,13 @@
         :title => "#{@year}年度#{@kamoku} 第#{@question.number}問",
         :reverse => true,
         :open_graph => {
-        :site_name => '中小企業診断士の過去問',
-        :title => "#{@year}年度#{@kamoku} 第#{@question.number}問",
-        :description => "#{@theme.maintheme} #{@theme.subtheme}",
-        :url => 'http://smec-kakomon.jp/',
-        :type => 'website',
-        :image => 'http://smec-kakomon.jp/assets/logo2.png'
-    }
+            :site_name => '中小企業診断士の過去問',
+            :title => "#{@year}年度#{@kamoku} 第#{@question.number}問",
+            :description => "#{@theme.maintheme} #{@theme.subtheme}",
+            :url => request.url,
+            :type => 'website',
+            :image => 'http://smec-kakomon.jp/assets/logo2.png'
+        }
 %>
 <%= display_meta_tags %>
 <% end %>
