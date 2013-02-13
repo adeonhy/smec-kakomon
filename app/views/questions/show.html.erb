@@ -59,13 +59,14 @@
 <div class="tabbable tabs-top">
     <ul class="nav nav-tabs">
         <li class="active">
-        <a href="#kanren" data-toggle="tab">関連情報(<%= @question.comments.count %>)</a></li>
+        <a href="#kanren" data-toggle="tab">関連情報</a></li>
         <li>
         <a href="#theme" data-toggle="tab">同じテーマの出題状況(<%= @themequestions.count %>)</a>
         </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active", id="kanren">
+            <!--
             <% if @question.comments.any? %>
                 <ul>
                     <% @question.comments.each do |c| %>
@@ -85,18 +86,6 @@
                                 </div>
                             </div>
                             
-                            <!--
-                            <li id="comment_<%= c.id %>">
-                            <% c.body.each_line do |l| %>
-                                <p><%= auto_link(l, html: {target: '_blank'}) %></p>
-                            <% end %> by <%= c.commenter %>
-                            <% if current_user && (current_user.id == c.user_id) %>
-                                <%= link_to content_tag('i', '', class: 'icon-trash'),
-                                    "/q/#{@question.subject}/#{@question.year}/#{@question.number}/c/#{c.id}",
-                                confirm: "削除してもよろしいですか？", method: :delete, remote: true %>
-                            <% end %>
-                            </li>
-                            -->
                         <% end %>
                     <% end %>
                 </ul>
@@ -145,10 +134,12 @@
             <% else %>
                 <div class="alert alert-info">
                     <button class="close" data-dismiss="alert">&times;</button>
-                    コメントを残すには、<%= link_to "ログイン", login_path_by_google %>してください。
+                    コメントを残すには、ログインしてください。
                 </div>
 
             <% end %>
+            -->
+            <div class="fb-comments" data-href="<%= request.url %>" data-width="470" data-num-posts="10"></div>
         </div>
         <div class="tab-pane", id="theme">
             <p><%= link_to "#{@theme.maintheme}/#{@theme.subtheme}", "/theme/#{@theme.themecode}" %></p>

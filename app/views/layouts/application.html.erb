@@ -50,6 +50,14 @@
         <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
     </head>
     <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=231231420346564";
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
 
         <!-- ===== ナビゲーションバー ===== -->
         <div class="navbar navbar-fixed-top navbar-inverse">
@@ -107,6 +115,7 @@
                     <h3>中小企業診断士の過去問(β)</h3>
                     <p>ようやくひと通りできました。</p>
                     <p>初めての方はとりあえずログインして年度別に解いてみましょう。</p>
+                    <div class="fb-like" data-href="http://smec-kakomon.jp/" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div>
                 </div>
             <% end %>
             <div class="row">
@@ -131,15 +140,24 @@
                     <%= yield %>
                 </div>
 
-                <div class="span3">
-                    <p>ゲームで勉強？</p>
-                    <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=smec-kakomon-22&o=9&p=8&l=as1&asins=B00A2M24V4&ref=tf_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-                    
-                    <iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=smec-kakomon-22&o=9&p=8&l=as1&asins=B00A2M24SC&ref=tf_til&fc1=000000&IS2=1&lt1=_blank&m=amazon&lc1=0000FF&bc1=000000&bg1=FFFFFF&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+                <div class="span3"> <!-- 右カラム -->
+                    <h5>ユーザー</h5>
+                    <% if current_user %>
+                        <p><%= current_user.name %></p>
+
+                    <% else %>
+                        <p>ログインしていません</p>
+                            <p><%= link_to (image_tag "login_fb.png"), login_path_by_facebook %></p>
+                            <p><%= link_to (image_tag "login_tw.png"), login_path_by_twitter %></p>
+                            <p><%= link_to (image_tag "google.png",{style:"display:inline;width:32px"})+ "Googleでログイン", login_path_by_google %></p>
+
+                    <% end %>
+                    <hr>
+                    <div class="fb-like-box" data-href="http://www.facebook.com/SmecKakomon" data-width="240" data-height="500" data-show-faces="true" data-stream="true" data-header="true"></div>
 
 
                     </div>
-                </div>
+                </div> <!-- 右カラム -->
         <footer>
         <p>&copy; おやつ Company 2013</p>
         </footer>
