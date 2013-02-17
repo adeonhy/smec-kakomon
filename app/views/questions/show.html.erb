@@ -16,6 +16,34 @@
 <%= display_meta_tags %>
 <% end %>
 
+<% content_for :sidebar do %>
+    <div class="sbox">
+        <h2>自分用メモ</h2>
+        <div class="sboxInner">
+            <% if current_user %>
+                <textarea 
+                    class="memoBox" 
+                    id="memo" 
+                    placeholder="このメモは他の人には公開されません。"></textarea>
+                <button 
+                    id="memo_save_button" 
+                    class="btn small" 
+                    style="line-height:12px"
+                    data-remote="true">
+                    内容を保存する</button>
+                <span 
+                    class="label label-success"
+                    id="memo_sysmessage" 
+                    style="display:none"
+                    >保存しました</span>
+            <% else %>
+                <p>ログインすると、問題ごとに自分専用のメモが残せます。</p>
+            <% end %>
+        </div>
+
+    </div>
+<% end %>
+
 <ul class="breadcrumb">
     <li><%= link_to 'Home', '/' %><span class="divider">/</span></li>
     <li><%= link_to "#{@year} 年度 #{@kamoku}", "/q/#{@question.subject}/#{@year}" %>
@@ -172,6 +200,55 @@
         $('a[data-method="delete"]').live('ajax:success', function(e, data, status, xhr){
            // alert("deleted!");
            $('#comment_' + data.comment.id).fadeOut("slow");
-        });
-    });
+       });
+
+       $('#memo_save_button').click(function(){
+          // alert($('#memo').val());
+          $.ajax({
+              type: 'POST',
+              url: '<%= set_memo_path %>',
+              data: {
+                  user_id: <%= current_user.id %>,
+                  question: '<%= @question.code %>',
+                  body: $('#memo').val(),
+              },
+              dataType: 'json',
+              cache: false,
+          })
+          .done(function(data){
+              if(data.success){
+                  // success
+                  $('#memo_sysmessage').fadeIn(500, function() {
+                      setTimeout(function() {
+                          $('#memo_sysmessage').fadeOut(500);
+                      }, 1000);
+                  });
+              } else {
+                  alert("コメントの保存に失敗しました。再度試してください。");
+              }
+          })
+          .fail(function(data){
+              alert("コメントの保存に失敗しました。再度試してください。");
+          });
+
+       }) 
+   });  
+
+   jQuery.event.add(window,"load",function(){
+       $.ajax({
+           type: 'GET',
+           url: '<%= get_memo_path %>',
+           data: {
+               user_id: <%= current_user.id %>,
+               question: '<%= @question.code %>',
+           },
+           dataType: 'json',
+           cache: false,
+       })
+       .done(function(data){
+           $('#memo').val(data.memo);
+       })
+       .fail(function(data){
+       });
+   });
 </script>

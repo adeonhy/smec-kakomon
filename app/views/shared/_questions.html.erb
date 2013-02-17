@@ -6,7 +6,7 @@
      file = "/assets/svg/#{@question.svg}"
    end
 %>
-<%= image_tag file %>
+<%= image_tag file, style:"width:100%" %>
 </p>
 
 <%  (1..@question.subquestion).each do |i| %>

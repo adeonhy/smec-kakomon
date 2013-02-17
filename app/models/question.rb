@@ -75,5 +75,13 @@ class Question < ActiveRecord::Base
     end 
   end
 
+  def code
+    "#{self.subject}/#{self.year}/#{"%02d" % self.number}"
+  end
+
+  def self.find_by_code(code)
+    subject, year, number = code.split('/')
+    Question.where(subject: subject, year: year.to_i, number: number.to_i).first
+  end
 
 end

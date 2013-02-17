@@ -123,7 +123,7 @@
                     <% unless session[:user_id] %>
                         <div class="alert alert-info">
                             <button class="close" data-dismiss="alert">&times;</button>
-                            <%= link_to "ログイン", login_path_by_google %>すると、学習の履歴が残せます。
+                            ログインすると、学習の履歴が残せます。
                         </div>
                     <% end %>
                     <% if flash[:notice] %>
@@ -141,23 +141,24 @@
                 </div>
 
                 <div class="span3"> <!-- 右カラム -->
-                    <h5>ユーザー</h5>
-                    <% if current_user %>
-                        <p><%= current_user.name %></p>
+                    <div class="sbox">
+                        <h2>ユーザー</h2>
+                        <div class="sboxInner">
+                            <% if current_user %>
+                                <p><%= current_user.name %></p>
 
-                    <% else %>
-                        <p>ログインしていません</p>
-                            <p><%= link_to (image_tag "login_fb.png"), login_path_by_facebook %></p>
-                            <p><%= link_to (image_tag "login_tw.png"), login_path_by_twitter %></p>
-                            <p><%= link_to (image_tag "google.png",{style:"display:inline;width:32px"})+ "Googleでログイン", login_path_by_google %></p>
+                            <% else %>
+                                <p>ログインしていません</p>
+                                <p><%= link_to (image_tag "login_fb.png"), login_path_by_facebook %></p>
+                                <p><%= link_to (image_tag "login_tw.png"), login_path_by_twitter %></p>
+                                <p><%= link_to (image_tag "google.png",{style:"display:inline;width:32px"})+ "Googleでログイン", login_path_by_google %></p>
 
-                    <% end %>
-                    <hr>
-                    <div class="fb-like-box" data-href="http://www.facebook.com/SmecKakomon" data-width="240" data-height="500" data-show-faces="true" data-stream="true" data-header="true"></div>
-
-
+                            <% end %>
+                        </div>
                     </div>
-                </div> <!-- 右カラム -->
+                    <%= yield :sidebar %>
+                </div>
+            </div> <!-- 右カラム -->
         <footer>
         <p>&copy; おやつ Company 2013</p>
         </footer>

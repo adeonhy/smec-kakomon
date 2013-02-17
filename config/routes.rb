@@ -18,6 +18,8 @@ Tbsample::Application.routes.draw do
   match 'q/:subject/:year/:number/c/:id' => 'comments#update', :via => :put
   match 'q/:subject/:year/:number/c/:id' => 'comments#destroy', :via => :delete
 
+  post 'api/memo' => 'api#set_memo', :as => 'set_memo'
+  get 'api/memo' => 'api#get_memo', :as => 'get_memo'
 
   # resources :questions do
     # resources :comments
