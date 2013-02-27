@@ -45,7 +45,11 @@ class QuestionsController < ApplicationController
     @question = Question.where(subject: @subject, year: @year, number: @qnum).first
     @right = @question.answer.split(',')[@section_num]
     @answer.delete!(',')
-    @correct = (@answer == @right)
+    @correct = if @answer == '*'
+                 true
+               else
+                 @answer == @right
+               end
     # user = session[:user_id] ? User.find(session[:user_id]) : nil
     AnswerLog.create(question_id: @question.id, user_id: session[:user_id], correct: @correct, section_num: @section_num, choose: @answer)
     render json: { answer: @answer, correct: @correct, right: @right, section: @section_num }

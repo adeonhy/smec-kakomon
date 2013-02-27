@@ -21,12 +21,16 @@ csv_files = [
   ['db/f1ji2012.csv', '0AnANDRug_3F2dFFJemV3U1c3V3dQV29fVm1vUklzYXc', 0],
   ['db/f1ji2011.csv', '0AnANDRug_3F2dFFJemV3U1c3V3dQV29fVm1vUklzYXc', 1],
   ['db/f1ji2010.csv', '0AnANDRug_3F2dFFJemV3U1c3V3dQV29fVm1vUklzYXc', 2],
+  ['db/g1ji2012.csv', '0AnANDRug_3F2dC1hSDk1RHdrTUdnMEhMZWJiR1JLMkE', 0],
+  ['db/g1ji2011.csv', '0AnANDRug_3F2dC1hSDk1RHdrTUdnMEhMZWJiR1JLMkE', 3],
+  ['db/g1ji2010.csv', '0AnANDRug_3F2dC1hSDk1RHdrTUdnMEhMZWJiR1JLMkE', 4],
   ['db/theme_keizai.csv', '0AnANDRug_3F2dFljTkt0anViRFQzOHJWNWhCb3BkaVE', 0],
   ['db/theme_zaimu.csv', '0AnANDRug_3F2dFljTkt0anViRFQzOHJWNWhCb3BkaVE', 1],
   ['db/theme_keiei.csv', '0AnANDRug_3F2dFljTkt0anViRFQzOHJWNWhCb3BkaVE', 3],
   ['db/theme_unei.csv', '0AnANDRug_3F2dFljTkt0anViRFQzOHJWNWhCb3BkaVE', 4],
   ['db/theme_homu.csv', '0AnANDRug_3F2dFljTkt0anViRFQzOHJWNWhCb3BkaVE', 5],
   ['db/theme_joho.csv', '0AnANDRug_3F2dFljTkt0anViRFQzOHJWNWhCb3BkaVE', 6],
+  ['db/theme_chusho.csv', '0AnANDRug_3F2dFljTkt0anViRFQzOHJWNWhCb3BkaVE', 7],
 ]
 
 

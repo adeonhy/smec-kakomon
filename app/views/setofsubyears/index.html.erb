@@ -33,14 +33,15 @@
                 </td>
 
                 <% %w(2012 2011 2010 2009 2008).each do |y| %>
-                 <td><% @setofsubyears.select {|i|(i.subject == st[:kamoku]) && (i.year == y)}.each do |set| %>
-                         <% if set.available %>
-                             <%= link_to content_tag('i','',class: "icon-book"), "/q/#{st[:code]}/#{set.year}" %>
-                         <% else %>
-                             -
-                         <% end %>
-                     <% end %>
-                 </td>
+                    <td>
+                        <% @setofsubyears.select {|i|(i.subject == st[:kamoku]) && (i.year == y)}.each do |set| %>
+                            <% if set.available %>
+                                <%= link_to content_tag('i','',class: "icon-book"), "/q/#{st[:code]}/#{set.year}" %>
+                            <% else %>
+                                -
+                            <% end %>
+                        <% end %>
+                    </td>
                 <% end %>
             </tr>
         <% end %>

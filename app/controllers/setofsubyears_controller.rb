@@ -22,7 +22,7 @@ class SetofsubyearsController < ApplicationController
       {code: 'd', subject: 'unei',  kamoku: "運営管理",themes: Theme.where('themecode like ?', '4__001').all},
       {code: 'e', subject: 'houmu', kamoku: "経営法務",themes: Theme.where('themecode like ?', '5__001').all},
       {code: 'f', subject: 'joho',  kamoku: "経営情報システム",themes: Theme.where('themecode like ?', '6__001').all},
-      {code: 'g', subject: 'chusho',kamoku: "中小企業経営・政策",themes: Theme.where('themecode like ?', '7__001').all},
+      {code: 'g', subject: 'chusho',kamoku: "中小企業経営政策",themes: Theme.where('themecode like ?', '7__001').all},
     ]
 
     @all_study_log = User.all_study_log
