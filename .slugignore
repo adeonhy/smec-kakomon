@@ -1,0 +1,6 @@
+/spec
+/app/assets
+*.jpg
+*.png
+*.svg
+*.gz
