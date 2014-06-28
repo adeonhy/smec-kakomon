@@ -208,7 +208,7 @@
               type: 'POST',
               url: '<%= set_memo_path %>',
               data: {
-                  user_id: <%= current_user.id %>,
+                  user_id: <%= current_user ? current_user.id : "" %>,
                   question: '<%= @question.code %>',
                   body: $('#memo').val(),
               },
@@ -239,7 +239,7 @@
            type: 'GET',
            url: '<%= get_memo_path %>',
            data: {
-               user_id: <%= current_user.id %>,
+               user_id: <%= current_user ?  current_user.id : ""%>,
                question: '<%= @question.code %>',
            },
            dataType: 'json',
