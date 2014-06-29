@@ -69,7 +69,7 @@
                         <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="/" style="color: #fefefe">
-                        <img src="/assets/banner_white.png" style="height: 20px" alt="smec-kakomon">
+                        <%= image_tag "/assets/banner_white.png" ,style: "height: 20px" , alt: "smec-kakomon" %>
                     </a>
                     <div class="nav-collapse">
                         <ul class="nav">
@@ -111,7 +111,7 @@
             <% if request.smart_phone? %>
             <% else %>
                 <div class="hero-unit">
-                    <img src="/assets/logo2.png" style="height:150px;float:left; padding-right:30px"  alt="logo">
+                    <%= image_tag "/assets/logo2.png", style:"height:150px;float:left; padding-right:30px" ,alt:"logo" %>
                     <h3>中小企業診断士の過去問(β)</h3>
                     <p>ようやくひと通りできました。</p>
                     <p>初めての方はとりあえずログインして年度別に解いてみましょう。</p>
